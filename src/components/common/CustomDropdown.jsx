@@ -1,30 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ChevronDown, X, Check } from 'lucide-react';
 
-/**
- * CustomDropdown Component
- * Ported & adapted directly from board.exchange StatusDropdown.tsx
- *
- * Features:
- * - Clean button trigger with customizable icon and chevron
- * - Rotating chevron on open
- * - 1-Click 'X' clear button when filtered / non-default value is selected
- * - Popover menu with active item checkmark & emerald background
- * - Upward auto-positioning when near bottom of viewport
- * - Click outside listener & keyboard accessibility
- *
- * @param {Array<string | { label: string, value: string, icon?: React.ReactNode }>} options
- * @param {string} value - Selected value
- * @param {Function} onChange - (value) => void
- * @param {string} placeholder - Display text when nothing or default is selected
- * @param {string} defaultValue - Value considered as 'cleared' (default: 'All')
- * @param {string} prefix - Optional label prefix (e.g. 'Village: ')
- * @param {React.ReactNode} icon - Optional icon to render inside trigger button
- * @param {boolean} clearable - Whether to show clear 'X' button (default: true)
- * @param {string} className - Container className
- * @param {string} buttonClassName - Button className
- * @param {string} menuClassName - Menu dropdown className
- */
 export const CustomDropdown = ({
   options = [],
   value,

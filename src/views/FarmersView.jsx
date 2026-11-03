@@ -163,7 +163,7 @@ export const FarmersView = () => {
 
   const [selectedFarmerIds, setSelectedFarmerIds] = useState([]);
 
-  // Column definitions for CommonTable (matching board.exchange schema)
+  // Column definitions for CommonTable
   const farmerColumns = useMemo(() => [
     {
       key: 'id',
@@ -430,7 +430,7 @@ export const FarmersView = () => {
         </button>
       </div>
 
-      {/* Modern CommonTable Component modeled after board.exchange */}
+      {/* Modern CommonTable Component */}
       <CommonTable
         columns={farmerColumns}
         data={filteredFarmers}

@@ -214,7 +214,7 @@ export const OperatorPortalView = () => {
     return matchesType && matchesSearch;
   });
 
-  // Table Column Definitions for Shift Intake Stream (modeled on board.exchange)
+  // Table Column Definitions for Shift Intake Stream
   const shiftTableColumns = useMemo(() => [
     {
       key: 'slipNo',
@@ -1016,7 +1016,7 @@ export const OperatorPortalView = () => {
             </div>
           </div>
 
-          {/* RECENT SHIFT INTAKE LOG TABLE (Powered by board.exchange CommonTable) */}
+          {/* Recent Shift Intake Log Table */}
           <CommonTable
             columns={shiftTableColumns}
             data={filteredTableSlips}

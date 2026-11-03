@@ -535,7 +535,7 @@ export const CommonTable = ({
         </div>
       )}
 
-      {/* 4. FOOTER PAGINATION (Custom component modeled after board.exchange) */}
+      {/* Footer Pagination */}
       {pagination && !loading && sortedData.length > 0 && (
         <div className="border-t border-slate-100 bg-white px-5 py-3">
           <Pagination

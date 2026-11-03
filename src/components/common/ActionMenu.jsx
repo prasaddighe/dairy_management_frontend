@@ -1,19 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { MoreVertical } from 'lucide-react';
 
-/**
- * ActionMenu Component
- * Reusable 3-dots actions menu modeled after board.exchange ActionMenu.tsx
- *
- * @param {Array} items - Array of { label, icon, onClick, danger, disabled, keepOpenOnClick }
- * @param {string} align - 'left' | 'right' (default: 'right')
- * @param {boolean} isNearBottom - Manually force dropdown to open upwards
- * @param {string} className - Additional container classes
- * @param {string} triggerClassName - Additional classes for the 3-dots button
- * @param {string} menuClassName - Additional classes for the dropdown popover
- * @param {boolean} isOpen - Controlled open state (optional)
- * @param {Function} onOpenChange - Controlled open change callback (optional)
- */
 export const ActionMenu = ({
   items = [],
   align = 'right',

@@ -1,17 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
-/**
- * Pagination Component
- * Ported & adapted directly from board.exchange Pagination.tsx
- *
- * Features:
- * - Items per page selector dropdown with chevron (10, 25, 50, 100)
- * - Dynamic visible page range with ellipsis '...'
- * - Quick jump page input on last ellipsis
- * - Polished button states (active emerald pill, subtle borders)
- * - Showing X to Y of Z total entries indicator
- */
 export const Pagination = ({
   currentPage = 1,
   totalPages = 1,
@@ -43,7 +32,7 @@ export const Pagination = ({
     };
   }, []);
 
-  // Compute visible pages with delta logic matching board.exchange
+  // Compute visible pages with delta logic
   const visiblePages = useMemo(() => {
     if (!totalPages || totalPages < 1) return [];
     if (totalPages === 1) return [1];

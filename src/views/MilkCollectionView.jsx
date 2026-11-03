@@ -120,7 +120,7 @@ export const MilkCollectionView = () => {
     showToast(`Exported ${list.length} milk records to CSV`, 'success');
   };
 
-  // Table Column Definitions modeled on board.exchange CommonTable
+  // Table Column Definitions
   const columns = useMemo(() => [
     {
       key: 'slipNo',
@@ -482,7 +482,7 @@ export const MilkCollectionView = () => {
         </div>
       </div>
 
-      {/* 4. PROFESSIONAL CUSTOM DATA TABLE (modeled after board.exchange CommonTable) */}
+      {/* Milk Intake Data Table */}
       <CommonTable
         columns={columns}
         data={filteredRecords}

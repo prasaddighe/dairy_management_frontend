@@ -63,7 +63,7 @@ export const ReportsView = () => {
     showToast('Report CSV downloaded successfully', 'success');
   };
 
-  // Columns for Daily Milk Quality Table (board.exchange schema)
+  // Columns for Daily Milk Quality Table
   const dailyMilkColumns = useMemo(() => [
     {
       key: 'slipNo',
