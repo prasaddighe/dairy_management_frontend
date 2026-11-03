@@ -30,7 +30,6 @@ export const AdminDashboardView = () => {
 
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
-  // Computed Metrics
   const todayDate = useMemo(() => new Date().toISOString().slice(0, 10), []);
   const todayRecords = milkRecords.filter(r => r.date === todayDate);
   const todayLiters = todayRecords.reduce((acc, r) => acc + r.quantity, 0);
@@ -48,13 +47,11 @@ export const AdminDashboardView = () => {
   const totalRevenue = sales.reduce((acc, s) => acc + s.total, 0);
   const totalExpenses = expenses.reduce((acc, e) => acc + e.amount, 0);
 
-  // Milk split
   const cowRecords = todayRecords.filter(r => r.milkType === 'Cow');
   const buffaloRecords = todayRecords.filter(r => r.milkType === 'Buffalo');
   const cowLiters = cowRecords.reduce((acc, r) => acc + r.quantity, 0);
   const bufLiters = buffaloRecords.reduce((acc, r) => acc + r.quantity, 0);
 
-  // Days of week for chart
   const weeklyData = [
     { day: 'Mon', cow: 180, buf: 140 },
     { day: 'Tue', cow: 210, buf: 155 },
@@ -69,7 +66,6 @@ export const AdminDashboardView = () => {
 
   return (
     <div>
-      {/* Top Banner / Welcome Header */}
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -89,7 +85,6 @@ export const AdminDashboardView = () => {
           </p>
         </div>
 
-        {/* Quick Action Buttons */}
         <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
           <button 
             className="btn-dairy btn-primary-dairy" 
@@ -112,9 +107,7 @@ export const AdminDashboardView = () => {
         </div>
       </div>
 
-      {/* 8 Metric Widgets (Requested in spec) */}
       <div className="row g-3 mb-4">
-        {/* 1. Today's Milk Collection */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card primary">
             <div className="stat-info">
@@ -130,7 +123,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* 2. Total Farmers */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card primary">
             <div className="stat-info">
@@ -146,7 +138,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* 3. Total Customers */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card info">
             <div className="stat-info">
@@ -162,7 +153,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* 4. Today's Milk Sales */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card warning">
             <div className="stat-info">
@@ -178,7 +168,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* 5. Pending Farmer Payments */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card danger">
             <div className="stat-info">
@@ -194,7 +183,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* 6. Pending Customer Payments */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card warning">
             <div className="stat-info">
@@ -210,7 +198,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* 7. Total Revenue */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card primary">
             <div className="stat-info">
@@ -226,7 +213,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* 8. Total Expenses */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card danger">
             <div className="stat-info">
@@ -243,9 +229,7 @@ export const AdminDashboardView = () => {
         </div>
       </div>
 
-      {/* Charts Section: Weekly Milk Trend + Milk Composition + Revenue Comparison */}
       <div className="row g-4 mb-4">
-        {/* Weekly Milk Collection Bar Chart */}
         <div className="col-12 col-lg-8">
           <div className="card-dairy h-100">
             <div className="card-dairy-header">
@@ -263,7 +247,6 @@ export const AdminDashboardView = () => {
               </div>
             </div>
             <div className="card-dairy-body">
-              {/* Responsive SVG Bar Chart */}
               <div style={{ width: '100%', height: '220px', position: 'relative', display: 'flex', alignItems: 'flex-end', gap: '14px', paddingTop: '20px' }}>
                 {weeklyData.map((d, idx) => {
                   const cowHeight = (d.cow / maxChartLiters) * 160;
@@ -319,7 +302,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* Milk Type Distribution & Silo Capacity */}
         <div className="col-12 col-lg-4">
           <div className="card-dairy h-100">
             <div className="card-dairy-header">
@@ -330,7 +312,6 @@ export const AdminDashboardView = () => {
               <span className="badge-dairy success">Live Gauges</span>
             </div>
             <div className="card-dairy-body">
-              {/* Circular Gauge / Progress Breakdown */}
               <div style={{ marginBottom: '1.25rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.825rem', marginBottom: '6px' }}>
                   <span className="fw-semibold">Cow Milk Silo (4,200L / 5,000L)</span>
@@ -384,9 +365,7 @@ export const AdminDashboardView = () => {
         </div>
       </div>
 
-      {/* Two Column Layout: Recent Milk Collection Table & Latest Financials */}
       <div className="row g-4">
-        {/* Recent Milk Intake Table */}
         <div className="col-12 col-xl-7">
           <div className="card-dairy">
             <div className="card-dairy-header">
@@ -454,7 +433,6 @@ export const AdminDashboardView = () => {
           </div>
         </div>
 
-        {/* Latest Transactions & Sales */}
         <div className="col-12 col-xl-5">
           <div className="card-dairy">
             <div className="card-dairy-header">
@@ -499,7 +477,6 @@ export const AdminDashboardView = () => {
                   </div>
                 ))}
 
-                {/* Quick Expense Summary preview */}
                 <div style={{ padding: '1rem 1.25rem', backgroundColor: 'var(--bg-subtle)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
@@ -515,7 +492,6 @@ export const AdminDashboardView = () => {
         </div>
       </div>
 
-      {/* Slip Modal */}
       {selectedReceipt && (
         <PrintReceiptModal
           isOpen={!!selectedReceipt}

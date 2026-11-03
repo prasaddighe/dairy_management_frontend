@@ -52,7 +52,6 @@ export const AccountantPortalView = () => {
 
   return (
     <div>
-      {/* Header */}
       <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-7 mb-7 shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-emerald-700 text-white text-2xl font-extrabold flex items-center justify-center shadow-lg shrink-0">
@@ -82,7 +81,6 @@ export const AccountantPortalView = () => {
         </div>
       </div>
 
-      {/* Financial KPIs */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card danger">
@@ -137,7 +135,6 @@ export const AccountantPortalView = () => {
         </div>
       </div>
 
-      {/* Pending Farmer Dues Clearance Table */}
       <div className="card-dairy">
         <div className="card-dairy-header">
           <div className="card-dairy-title">
@@ -202,7 +199,6 @@ export const AccountantPortalView = () => {
         </div>
       </div>
 
-      {/* Disburse Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

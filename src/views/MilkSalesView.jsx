@@ -15,7 +15,6 @@ import { PrintReceiptModal } from '../components/common/PrintReceiptModal';
 export const MilkSalesView = () => {
   const { products, sales, addSale, customers, showToast } = useDairy();
 
-  // Cart State
   const [cart, setCart] = useState([]);
   const [customerName, setCustomerName] = useState('Walk-in Customer');
   const [customerPhone, setCustomerPhone] = useState('+91 98000 00000');
@@ -23,16 +22,13 @@ export const MilkSalesView = () => {
   const [taxPercent, setTaxPercent] = useState(0); // 0% on fresh liquid milk/paneer, customizable
   const [paymentMethod, setPaymentMethod] = useState('UPI / PhonePe');
 
-  // Search & Filters
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  // Slip Modal
   const [selectedInvoice, setSelectedInvoice] = useState(null);
 
   const categories = ['All', ...new Set(products.map(p => p.category))];
 
-  // Cart operations
   const addToCart = (product) => {
     if (product.stock <= 0) {
       showToast(`${product.name} is out of stock!`, 'warning');
@@ -83,12 +79,10 @@ export const MilkSalesView = () => {
     setDiscount(0);
   };
 
-  // Financial Calculations
   const subtotal = cart.reduce((acc, it) => acc + it.total, 0);
   const taxAmount = (subtotal * parseFloat(taxPercent || 0)) / 100;
   const netTotal = Math.max(0, subtotal - parseFloat(discount || 0) + taxAmount);
 
-  // Complete Checkout
   const handleCheckout = (e) => {
     e.preventDefault();
     if (cart.length === 0) {
@@ -107,7 +101,6 @@ export const MilkSalesView = () => {
       paymentMethod
     });
 
-    // Clear cart and show invoice receipt modal
     clearCart();
     setSelectedInvoice(newSale);
   };
@@ -120,7 +113,6 @@ export const MilkSalesView = () => {
 
   return (
     <div>
-      {/* Header */}
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -144,9 +136,7 @@ export const MilkSalesView = () => {
       </div>
 
       <div className="row g-4">
-        {/* Left Side: Product Selector Catalog */}
         <div className="col-12 col-lg-7 col-xl-8">
-          {/* Search & Categories */}
           <div className="card-dairy mb-3">
             <div className="card-dairy-body" style={{ padding: '0.85rem 1rem' }}>
               <div className="row g-2 align-items-center">
@@ -192,7 +182,6 @@ export const MilkSalesView = () => {
             </div>
           </div>
 
-          {/* Product Grid */}
           <div className="row g-3">
             {filteredProducts.map(prod => (
               <div key={prod.id} className="col-12 col-sm-6 col-xl-4">
@@ -236,7 +225,6 @@ export const MilkSalesView = () => {
             ))}
           </div>
 
-          {/* Past Invoices Summary Table */}
           <div className="card-dairy mt-4">
             <div className="card-dairy-header">
               <div className="card-dairy-title">
@@ -284,7 +272,6 @@ export const MilkSalesView = () => {
           </div>
         </div>
 
-        {/* Right Side: Active Billing Cart & Terminal */}
         <div className="col-12 col-lg-5 col-xl-4">
           <div className="card-dairy" style={{ position: 'sticky', top: '90px' }}>
             <div className="card-dairy-header">
@@ -303,7 +290,6 @@ export const MilkSalesView = () => {
             </div>
 
             <div className="card-dairy-body">
-              {/* Customer Selector / Walk-in input */}
               <div className="mb-3">
                 <label className="form-label">Customer Name</label>
                 <div style={{ display: 'flex', gap: '6px' }}>
@@ -335,7 +321,6 @@ export const MilkSalesView = () => {
                 </div>
               </div>
 
-              {/* Cart Items List */}
               <div style={{ maxHeight: '240px', overflowY: 'auto', marginBottom: '1rem', borderTop: '1px solid var(--border-light)', paddingTop: '0.5rem' }}>
                 {cart.length > 0 ? (
                   cart.map(item => (
@@ -397,7 +382,6 @@ export const MilkSalesView = () => {
                 )}
               </div>
 
-              {/* Subtotal & Adjustments */}
               <div style={{ backgroundColor: 'var(--bg-subtle)', padding: '1rem', borderRadius: '10px', marginBottom: '1rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '4px' }}>
                   <span>Subtotal:</span>
@@ -434,7 +418,6 @@ export const MilkSalesView = () => {
                 </div>
               </div>
 
-              {/* Payment Method */}
               <div className="mb-3">
                 <label className="form-label">Payment Method</label>
                 <select
@@ -449,7 +432,6 @@ export const MilkSalesView = () => {
                 </select>
               </div>
 
-              {/* Checkout Button */}
               <button
                 className="btn-dairy btn-primary-dairy"
                 style={{ width: '100%', padding: '0.75rem', fontSize: '0.95rem' }}
@@ -463,7 +445,6 @@ export const MilkSalesView = () => {
         </div>
       </div>
 
-      {/* Invoice Receipt Modal */}
       {selectedInvoice && (
         <PrintReceiptModal
           isOpen={!!selectedInvoice}

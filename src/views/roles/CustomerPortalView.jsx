@@ -37,7 +37,6 @@ export const CustomerPortalView = () => {
   const [payAmount, setPayAmount] = useState((customer.balance || 0).toString());
   const [payMethod, setPayMethod] = useState('UPI / GPay');
 
-  // Handle Quick Order of Artisan product
   const handleQuickOrder = (product) => {
     addSale({
       customerName: customer.name,
@@ -65,7 +64,6 @@ export const CustomerPortalView = () => {
 
   return (
     <div>
-      {/* Welcome Banner */}
       <div className="bg-gradient-to-br from-sky-600 to-sky-800 text-white rounded-2xl p-7 mb-7 shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-white text-sky-600 text-2xl font-extrabold flex items-center justify-center shadow-lg shrink-0">
@@ -98,7 +96,6 @@ export const CustomerPortalView = () => {
         </div>
       </div>
 
-      {/* Subscription Status Card */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-md-4">
           <div className="stat-card primary">
@@ -155,7 +152,6 @@ export const CustomerPortalView = () => {
         </div>
       </div>
 
-      {/* Order Additional Dairy Products Catalog */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-header">
           <div className="card-dairy-title">
@@ -194,7 +190,6 @@ export const CustomerPortalView = () => {
         </div>
       </div>
 
-      {/* Pay Modal */}
       <Modal
         isOpen={isPayModalOpen}
         onClose={() => setIsPayModalOpen(false)}

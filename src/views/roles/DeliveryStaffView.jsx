@@ -22,7 +22,6 @@ export const DeliveryStaffView = () => {
 
   return (
     <div>
-      {/* Header Banner */}
       <div className="bg-gradient-to-br from-amber-600 to-amber-800 text-white rounded-2xl p-7 mb-7 shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-white text-amber-700 text-2xl font-extrabold flex items-center justify-center shadow-lg shrink-0">
@@ -61,7 +60,6 @@ export const DeliveryStaffView = () => {
         </div>
       </div>
 
-      {/* Progress Cards */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-md-4">
           <div className="stat-card primary">
@@ -105,7 +103,6 @@ export const DeliveryStaffView = () => {
         </div>
       </div>
 
-      {/* Route Stops List */}
       <div className="card-dairy">
         <div className="card-dairy-header">
           <div className="card-dairy-title">
@@ -162,7 +159,6 @@ export const DeliveryStaffView = () => {
                       </div>
                     </div>
 
-                    {/* Actions */}
                     <div className="flex items-center gap-3">
                       <a
                         href={`tel:${del.phone}`}

@@ -30,7 +30,6 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
 
   const role = currentUser?.id || 'super_admin';
 
-  // Navigation Items customized per Role
   const getNavSections = () => {
     if (role === 'farmer') {
       return [
@@ -103,7 +102,6 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
       ];
     }
 
-    // Default for Super Admin & Dairy Admin: Full Enterprise Suite
     return [
       {
         title: 'Core Operations',
@@ -176,7 +174,6 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
           </button>
         </div>
 
-        {/* Current Role Banner */}
         {!isCollapsed && (
           <div className="px-5 py-2.5 bg-slate-100 border-b border-slate-200/60">
             <div className="flex items-center justify-between">
@@ -218,7 +215,6 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
             </div>
           ))}
 
-          {/* Quick Logout Button */}
           <div className="mt-auto pt-4">
             <button
               className="nav-link-btn text-red-600 hover:text-red-700"
@@ -230,7 +226,6 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
           </div>
         </div>
 
-        {/* Footer User Info */}
         <div className="sidebar-footer">
           <div className="user-mini-card">
             <div className="user-avatar">

@@ -6,7 +6,6 @@ import { Toast } from './components/common/Toast';
 import { LoginView } from './views/LoginView';
 import { RegisterView } from './views/RegisterView';
 
-// Core Views
 import { AdminDashboardView } from './views/AdminDashboardView';
 import { MilkCollectionView } from './views/MilkCollectionView';
 import { FarmersView } from './views/FarmersView';
@@ -23,7 +22,6 @@ import { UserRolesView } from './views/UserRolesView';
 import { NotificationsView } from './views/NotificationsView';
 import { SettingsView } from './views/SettingsView';
 
-// Dedicated Role Portals
 import { FarmerPortalView } from './views/roles/FarmerPortalView';
 import { CustomerPortalView } from './views/roles/CustomerPortalView';
 import { DeliveryStaffView } from './views/roles/DeliveryStaffView';
@@ -36,7 +34,6 @@ const MainApplication = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
 
-  // If not authenticated, show professional Login or Register View
   if (!currentUser) {
     return (
       <>
@@ -50,11 +47,9 @@ const MainApplication = () => {
     );
   }
 
-  // Determine which component to display based on Role & Active Tab
   const renderCurrentView = () => {
     const role = currentUser.id;
 
-    // Dedicated Dashboard Views for Special Roles
     if (activeTab === 'dashboard') {
       if (role === 'farmer') return <FarmerPortalView />;
       if (role === 'customer') return <CustomerPortalView />;
@@ -64,7 +59,6 @@ const MainApplication = () => {
       return <AdminDashboardView />;
     }
 
-    // Role-specific alias routes
     if (activeTab === 'farmer-records') return <FarmerPortalView />;
     if (activeTab === 'farmer-payments') return <FarmerPortalView />;
     if (activeTab === 'farmer-rates') return <SettingsView />;
@@ -73,7 +67,6 @@ const MainApplication = () => {
     if (activeTab === 'customer-deliveries') return <CustomerPortalView />;
     if (activeTab === 'customer-invoices') return <CustomerPortalView />;
 
-    // General Standard Modules
     switch (activeTab) {
       case 'milk-collection':
         return <MilkCollectionView />;
@@ -110,7 +103,6 @@ const MainApplication = () => {
 
   return (
     <div className="app-layout">
-      {/* Sidebar Navigation */}
       <Sidebar
         isCollapsed={sidebarCollapsed}
         toggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -118,21 +110,17 @@ const MainApplication = () => {
         closeMobile={() => setMobileSidebarOpen(false)}
       />
 
-      {/* Main Content Area */}
       <div className={`main-content ${sidebarCollapsed ? 'collapsed' : ''}`}>
-        {/* Top Navbar */}
         <Navbar
           toggleSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
           sidebarOpen={mobileSidebarOpen}
         />
 
-        {/* Page Content Body */}
         <main className="content-body">
           {renderCurrentView()}
         </main>
       </div>
 
-      {/* Toast Notification Container */}
       <Toast />
     </div>
   );

@@ -21,7 +21,6 @@ export const ReportsView = () => {
   const [reportType, setReportType] = useState('daily-milk');
   const [dateRange, setDateRange] = useState('Today');
 
-  // Aggregations
   const totalLiters = milkRecords.reduce((acc, r) => acc + r.quantity, 0);
   const cowLiters = milkRecords.filter(r => r.milkType === 'Cow').reduce((acc, r) => acc + r.quantity, 0);
   const bufLiters = milkRecords.filter(r => r.milkType === 'Buffalo').reduce((acc, r) => acc + r.quantity, 0);
@@ -38,7 +37,6 @@ export const ReportsView = () => {
   const totalExpensesAmount = expenses.reduce((acc, e) => acc + e.amount, 0);
   const totalFarmerPayouts = milkRecords.reduce((acc, r) => acc + r.totalAmount, 0);
 
-  // Export CSV
   const handleExportCSV = () => {
     let csvContent = "data:text/csv;charset=utf-8,";
     if (reportType === 'daily-milk') {
@@ -63,7 +61,6 @@ export const ReportsView = () => {
     showToast('Report CSV downloaded successfully', 'success');
   };
 
-  // Columns for Daily Milk Quality Table
   const dailyMilkColumns = useMemo(() => [
     {
       key: 'slipNo',
@@ -223,7 +220,6 @@ export const ReportsView = () => {
     }
   ], [showToast]);
 
-  // Columns for Farmer-wise Supply Table
   const farmerSupplyColumns = useMemo(() => [
     {
       key: 'id',
@@ -381,7 +377,6 @@ export const ReportsView = () => {
     }
   ], [showToast]);
 
-  // Export handlers for CommonTable
   const handleDailyMilkExport = (format) => {
     if (format === 'print') {
       window.print();
@@ -422,7 +417,6 @@ export const ReportsView = () => {
 
   return (
     <div>
-      {/* Title & Actions */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Reports & Dairy Analytics</h1>
@@ -441,7 +435,6 @@ export const ReportsView = () => {
         </div>
       </div>
 
-      {/* Report Selector Pills */}
       <div className="card-dairy mb-4 relative z-30 overflow-visible">
         <div className="card-dairy-body py-3.5 px-5 overflow-visible">
           <div className="flex flex-wrap gap-3 items-center justify-between">
@@ -484,7 +477,6 @@ export const ReportsView = () => {
         </div>
       </div>
 
-      {/* Analytics Summary Cards */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card primary">
@@ -539,7 +531,6 @@ export const ReportsView = () => {
         </div>
       </div>
 
-      {/* Dynamic Report View */}
       {reportType === 'daily-milk' && (
         <CommonTable
           columns={dailyMilkColumns}

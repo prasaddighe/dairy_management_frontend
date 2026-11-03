@@ -37,7 +37,6 @@ export const OperatorPortalView = () => {
     settings
   } = useDairy();
 
-  // Fast Form Entry State
   const [selectedFarmerId, setSelectedFarmerId] = useState(farmers[0]?.id || '');
   const [farmerSearch, setFarmerSearch] = useState('');
   const [milkType, setMilkType] = useState('Cow');
@@ -47,17 +46,14 @@ export const OperatorPortalView = () => {
   const [clr, setClr] = useState('28.5');
   const [selectedSlip, setSelectedSlip] = useState(null);
 
-  // Modals
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
   const [isRateChartOpen, setIsRateChartOpen] = useState(false);
   const [isHardwareModalOpen, setIsHardwareModalOpen] = useState(false);
 
-  // Table filter states
   const [tableSearch, setTableSearch] = useState('');
   const [tableTypeFilter, setTableTypeFilter] = useState('All');
   const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().slice(0, 10));
 
-  // Hardware simulation states
   const [scaleReading, setScaleReading] = useState(false);
   const [analyzerReading, setAnalyzerReading] = useState(false);
   const [tareActive, setTareActive] = useState(false);
@@ -67,7 +63,6 @@ export const OperatorPortalView = () => {
 
   const selectedFarmer = farmers.find(f => f.id === selectedFarmerId) || farmers[0];
 
-  // Filtered farmers for fast lookup
   const filteredFarmerList = farmers.filter(f => 
     !farmerSearch || 
     f.name.toLowerCase().includes(farmerSearch.toLowerCase()) ||
@@ -76,14 +71,12 @@ export const OperatorPortalView = () => {
     (f.village && f.village.toLowerCase().includes(farmerSearch.toLowerCase()))
   );
 
-  // Records for current shift and selected date
   const shiftRecords = milkRecords.filter(r => {
     const matchesShift = r.shift === currentShift;
     const matchesDate = !selectedDate || r.date === selectedDate;
     return matchesShift && matchesDate;
   });
 
-  // Shift Aggregations
   const shiftLiters = shiftRecords.reduce((acc, r) => acc + (parseFloat(r.quantity) || 0), 0);
   const shiftTotalPayout = shiftRecords.reduce((acc, r) => acc + (parseFloat(r.totalAmount) || 0), 0);
   
@@ -92,7 +85,6 @@ export const OperatorPortalView = () => {
   const cowLiters = cowRecords.reduce((acc, r) => acc + (parseFloat(r.quantity) || 0), 0);
   const buffLiters = buffRecords.reduce((acc, r) => acc + (parseFloat(r.quantity) || 0), 0);
 
-  // Weighted Averages
   const weightedFat = shiftLiters > 0
     ? (shiftRecords.reduce((acc, r) => acc + (r.fat * r.quantity), 0) / shiftLiters).toFixed(2)
     : '0.0';
@@ -100,11 +92,9 @@ export const OperatorPortalView = () => {
     ? (shiftRecords.reduce((acc, r) => acc + (r.snf * r.quantity), 0) / shiftLiters).toFixed(2)
     : '0.0';
 
-  // Target shift capacity (e.g. 350 Liters)
   const shiftTarget = 350;
   const targetProgress = Math.min(100, Math.round((shiftLiters / shiftTarget) * 100));
 
-  // Handle Form Submission
   const handleRecordIntake = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     if (!quantity || parseFloat(quantity) <= 0) {
@@ -125,16 +115,13 @@ export const OperatorPortalView = () => {
       date: selectedDate
     });
 
-    // Reset quantity for next can
     setQuantity('');
     setSelectedSlip(newRecord);
   };
 
-  // Hardware Simulation: Digital Weighing Scale Capture
   const handleReadScale = useCallback(() => {
     setScaleReading(true);
     setTimeout(() => {
-      // Simulate realistic can weight based on selected milk type
       const simulatedWeight = milkType === 'Cow' 
         ? +(22 + Math.random() * 25).toFixed(1)
         : +(35 + Math.random() * 30).toFixed(1);
@@ -144,7 +131,6 @@ export const OperatorPortalView = () => {
     }, 600);
   }, [milkType, showToast]);
 
-  // Hardware Simulation: Lactoscan Ultrasonic Analyzer Capture
   const handleReadAnalyzer = useCallback(() => {
     setAnalyzerReading(true);
     setTimeout(() => {
@@ -166,7 +152,6 @@ export const OperatorPortalView = () => {
     }, 700);
   }, [milkType, showToast]);
 
-  // Fast Demo Entry (fills next member for quick testing)
   const handleSimulateNextFarmer = () => {
     const randomIndex = Math.floor(Math.random() * farmers.length);
     const farmer = farmers[randomIndex];
@@ -186,7 +171,6 @@ export const OperatorPortalView = () => {
     showToast(`Loaded ${farmer.name} (${chosenType}) ready for intake!`, 'info');
   };
 
-  // Keyboard shortcut listener (Enter = Submit, F2 = Switch type, F3 = Scale, F4 = Analyzer)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'F2') {
@@ -204,7 +188,6 @@ export const OperatorPortalView = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleReadScale, handleReadAnalyzer]);
 
-  // Filtered Table Slips
   const filteredTableSlips = shiftRecords.filter(r => {
     const matchesType = tableTypeFilter === 'All' || r.milkType === tableTypeFilter;
     const matchesSearch = !tableSearch || 
@@ -214,7 +197,6 @@ export const OperatorPortalView = () => {
     return matchesType && matchesSearch;
   });
 
-  // Table Column Definitions for Shift Intake Stream
   const shiftTableColumns = useMemo(() => [
     {
       key: 'slipNo',
@@ -338,10 +320,8 @@ export const OperatorPortalView = () => {
 
   return (
     <div>
-      {/* 1. OPERATOR COMMAND HERO BANNER */}
       <div className="operator-hero-banner">
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.25rem', position: 'relative', zIndex: 2 }}>
-          {/* Operator Profile */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.15rem' }}>
             <div style={{
               width: '68px',
@@ -398,9 +378,7 @@ export const OperatorPortalView = () => {
             </div>
           </div>
 
-          {/* Right Action Controls */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-            {/* Shift Selector */}
             <div style={{
               backgroundColor: 'rgba(0, 0, 0, 0.25)',
               padding: '4px',
@@ -453,7 +431,6 @@ export const OperatorPortalView = () => {
               </button>
             </div>
 
-            {/* Quick Action Buttons */}
             <button
               type="button"
               className="btn-dairy"
@@ -476,7 +453,6 @@ export const OperatorPortalView = () => {
         </div>
       </div>
 
-      {/* 2. REAL-TIME HARDWARE & PERIPHERAL DIAGNOSTICS RIBBON */}
       <div className="peripheral-ribbon">
         <div className="peripheral-item">
           <div className="peripheral-icon-box connected">
@@ -549,9 +525,7 @@ export const OperatorPortalView = () => {
         </div>
       </div>
 
-      {/* 3. SHIFT EXECUTIVE METRICS - COMPACT 4-COLUMN GRID */}
       <div className="row g-3 mb-4">
-        {/* Metric 1: Total Volume */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card primary">
             <div className="stat-info" style={{ width: '100%' }}>
@@ -573,7 +547,6 @@ export const OperatorPortalView = () => {
           </div>
         </div>
 
-        {/* Metric 2: Shift Payout */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card warning">
             <div className="stat-info">
@@ -589,7 +562,6 @@ export const OperatorPortalView = () => {
           </div>
         </div>
 
-        {/* Metric 3: Farmer Turnout */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card info">
             <div className="stat-info">
@@ -607,7 +579,6 @@ export const OperatorPortalView = () => {
           </div>
         </div>
 
-        {/* Metric 4: Quality Benchmark */}
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card primary">
             <div className="stat-info">
@@ -626,9 +597,7 @@ export const OperatorPortalView = () => {
         </div>
       </div>
 
-      {/* 4. MAIN WORKSTATION: TWO-COLUMN LAYOUT */}
       <div className="row g-4 mb-4">
-        {/* LEFT COLUMN: HIGH-SPEED INTAKE COUNTER */}
         <div className="col-12 col-xl-5">
           <div className="card-dairy" style={{ border: '1.5px solid #cbd5e1', boxShadow: 'var(--shadow-sm)' }}>
             <div className="card-dairy-header" style={{ backgroundColor: '#f8fafc' }}>
@@ -643,7 +612,6 @@ export const OperatorPortalView = () => {
 
             <div className="card-dairy-body">
               <form onSubmit={handleRecordIntake}>
-                {/* Farmer Search & Selection */}
                 <div className="form-group mb-3">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
                     <label className="form-label" style={{ margin: 0, fontWeight: 700 }}>
@@ -682,7 +650,6 @@ export const OperatorPortalView = () => {
                   </div>
                 </div>
 
-                {/* Farmer Dossier Badge Preview */}
                 {selectedFarmer && (
                   <div className="farmer-dossier-pill">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -720,7 +687,6 @@ export const OperatorPortalView = () => {
                   </div>
                 )}
 
-                {/* Milk Variety Selector (Cow / Buffalo) */}
                 <div className="form-group mb-3">
                   <label className="form-label">Select Milk Variety (दुधाचा प्रकार) *</label>
                   <div className="variety-toggle-group">
@@ -752,9 +718,7 @@ export const OperatorPortalView = () => {
                   </div>
                 </div>
 
-                {/* Milk Measurement Inputs with Simulated Hardware Capture */}
                 <div className="row g-2 mb-3">
-                  {/* Quantity Input */}
                   <div className="col-12 col-md-6">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3px' }}>
                       <label className="form-label" style={{ margin: 0 }}>Quantity (Liters) *</label>
@@ -793,7 +757,6 @@ export const OperatorPortalView = () => {
                     </div>
                   </div>
 
-                  {/* Fat % Input */}
                   <div className="col-6 col-md-3">
                     <label className="form-label">Fat % (स्निग्धांश)</label>
                     <input
@@ -807,7 +770,6 @@ export const OperatorPortalView = () => {
                     />
                   </div>
 
-                  {/* SNF % Input */}
                   <div className="col-6 col-md-3">
                     <label className="form-label">SNF % (एस.एन.एफ)</label>
                     <input
@@ -822,7 +784,6 @@ export const OperatorPortalView = () => {
                   </div>
                 </div>
 
-                {/* Lacto / Analyzer Quick Action & Quality Preview */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -857,7 +818,6 @@ export const OperatorPortalView = () => {
                   </button>
                 </div>
 
-                {/* REAL-TIME DYNAMIC VALUATION CARD */}
                 <div className="intake-calc-box">
                   <div className="intake-calc-row">
                     <span>Base Fat & SNF Rate:</span>
@@ -887,7 +847,6 @@ export const OperatorPortalView = () => {
                   </div>
                 </div>
 
-                {/* ACTION BUTTONS */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                   <button
                     type="submit"
@@ -927,7 +886,6 @@ export const OperatorPortalView = () => {
                   </div>
                 </div>
 
-                {/* Hotkeys Legend */}
                 <div style={{
                   marginTop: '0.85rem',
                   textAlign: 'center',
@@ -941,9 +899,7 @@ export const OperatorPortalView = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: LIVE SHIFT INTAKE STREAM & SILO STORAGE */}
         <div className="col-12 col-xl-7">
-          {/* BULK MILK COOLER (BMCU) SILO TANK GAUGES */}
           <div className="row g-2 mb-3">
             <div className="col-12 col-sm-6">
               <div className="silo-card">
@@ -1016,7 +972,6 @@ export const OperatorPortalView = () => {
             </div>
           </div>
 
-          {/* Recent Shift Intake Log Table */}
           <CommonTable
             columns={shiftTableColumns}
             data={filteredTableSlips}
@@ -1079,7 +1034,6 @@ export const OperatorPortalView = () => {
         </div>
       </div>
 
-      {/* 5. MODAL: PRINT THERMAL SLIP */}
       {selectedSlip && (
         <PrintReceiptModal
           isOpen={!!selectedSlip}
@@ -1089,7 +1043,6 @@ export const OperatorPortalView = () => {
         />
       )}
 
-      {/* 6. MODAL: SHIFT SUMMARY RECONCILIATION SHEET */}
       <Modal
         isOpen={isSummaryModalOpen}
         onClose={() => setIsSummaryModalOpen(false)}
@@ -1128,7 +1081,6 @@ export const OperatorPortalView = () => {
             </div>
           </div>
 
-          {/* Shift KPI Table */}
           <div className="row g-2 mb-4">
             <div className="col-4">
               <div style={{ padding: '0.75rem', backgroundColor: 'var(--bg-subtle)', borderRadius: '8px', textAlign: 'center' }}>
@@ -1167,7 +1119,6 @@ export const OperatorPortalView = () => {
             </div>
           </div>
 
-          {/* Memberwise List */}
           <h5 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem' }}>
             Memberwise Milk Supply Log ({shiftRecords.length} Records)
           </h5>
@@ -1219,7 +1170,6 @@ export const OperatorPortalView = () => {
         </div>
       </Modal>
 
-      {/* 7. MODAL: RATE MATRIX CHART */}
       <Modal
         isOpen={isRateChartOpen}
         onClose={() => setIsRateChartOpen(false)}
@@ -1292,7 +1242,6 @@ export const OperatorPortalView = () => {
         </div>
       </Modal>
 
-      {/* 8. MODAL: HARDWARE DIAGNOSTICS */}
       <Modal
         isOpen={isHardwareModalOpen}
         onClose={() => setIsHardwareModalOpen(false)}
@@ -1304,7 +1253,6 @@ export const OperatorPortalView = () => {
         }
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {/* Scale */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid var(--border)', borderRadius: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <Scale size={24} color="#059669" />
@@ -1327,7 +1275,6 @@ export const OperatorPortalView = () => {
             </button>
           </div>
 
-          {/* Analyzer */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid var(--border)', borderRadius: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <FlaskConical size={24} color="#2563eb" />
@@ -1344,7 +1291,6 @@ export const OperatorPortalView = () => {
             </button>
           </div>
 
-          {/* Printer */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid var(--border)', borderRadius: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <Printer size={24} color="#d97706" />

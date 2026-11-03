@@ -97,7 +97,6 @@ export const EmployeesView = () => {
         </div>
       </div>
 
-      {/* Add Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}

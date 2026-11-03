@@ -19,7 +19,6 @@ export const CustomDropdown = ({
   const [openUpward, setOpenUpward] = useState(false);
   const ref = useRef(null);
 
-  // Normalize options to [{ label, value, icon }]
   const normalizedOptions = options.map((opt) => {
     if (typeof opt === 'string' || typeof opt === 'number') {
       return {

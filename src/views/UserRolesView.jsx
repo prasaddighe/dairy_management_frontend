@@ -103,7 +103,6 @@ export const UserRolesView = () => {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">User & Access Management</h1>
@@ -120,7 +119,6 @@ export const UserRolesView = () => {
         </button>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-2 border-b border-slate-200 mb-6">
         <button
           type="button"
@@ -148,7 +146,6 @@ export const UserRolesView = () => {
 
       {activeSubTab === 'users' ? (
         <>
-          {/* Filter Bar */}
           <div className="card-dairy mb-3 p-3 sm:px-5">
             <div className="row g-2 align-items-center">
               <div className="col-12 col-md-6 col-lg-4">
@@ -183,7 +180,6 @@ export const UserRolesView = () => {
             </div>
           </div>
 
-          {/* Users Table */}
           <div className="card-dairy">
             <div className="table-responsive">
               <table className="table-dairy">
@@ -291,7 +287,6 @@ export const UserRolesView = () => {
           </div>
         </>
       ) : (
-        /* Permissions Matrix */
         <div className="card-dairy">
           <div className="card-dairy-header">
             <div className="card-dairy-title">
@@ -341,7 +336,6 @@ export const UserRolesView = () => {
         </div>
       )}
 
-      {/* Add User Modal */}
       <Modal
         isOpen={isAddUserModalOpen}
         onClose={() => setIsAddUserModalOpen(false)}

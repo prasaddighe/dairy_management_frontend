@@ -6,7 +6,6 @@ import {
   EyeOff,
   LogIn,
   ShieldCheck,
-  CheckCircle2,
   AlertCircle,
   Loader2
 } from 'lucide-react';
@@ -16,8 +15,8 @@ import { Modal } from '../components/common/Modal';
 export const LoginView = ({ onNavigateRegister }) => {
   const { loginUser, showToast } = useDairy();
 
-  const [username, setUsername] = useState('anand.patil');
-  const [password, setPassword] = useState('Password@1234');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
@@ -60,9 +59,7 @@ export const LoginView = ({ onNavigateRegister }) => {
 
   return (
     <div className="w-screen h-screen min-h-screen max-h-screen flex bg-white overflow-hidden m-0 p-0">
-      {/* Left Column: Full-Screen Hero Brand Section */}
       <div className="hidden lg:flex flex-none w-[40%] max-w-[40%] h-screen bg-gradient-to-br from-green-900 via-green-700 to-green-800 text-white p-12 flex-col justify-between relative overflow-y-auto">
-        {/* Background Illustration Overlay */}
         <div
           className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none mix-blend-overlay bg-[url('/dairy-hero.jpg')]"
         />
@@ -86,7 +83,6 @@ export const LoginView = ({ onNavigateRegister }) => {
           </p>
         </div>
 
-        {/* Quick Key Highlights */}
         <div className="relative z-10 mt-8">
           <div className="grid grid-cols-2 gap-3.5 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20">
             <div>
@@ -109,7 +105,6 @@ export const LoginView = ({ onNavigateRegister }) => {
         </div>
       </div>
 
-      {/* Right Column: Full-Screen Form Container */}
       <div className="flex-1 h-screen overflow-y-auto bg-white flex flex-col justify-center items-center px-6 sm:px-12 py-10">
         <div className="w-full max-w-md my-auto">
           <div className="mb-8">
@@ -124,7 +119,6 @@ export const LoginView = ({ onNavigateRegister }) => {
             </p>
           </div>
 
-          {/* Error Alert Banner */}
           {errorMessage && (
             <div className="bg-red-50 text-red-800 border border-red-200 rounded-xl p-3.5 text-sm mb-5 flex items-center gap-2 shadow-sm">
               <AlertCircle size={18} className="shrink-0 text-red-600" />
@@ -132,7 +126,6 @@ export const LoginView = ({ onNavigateRegister }) => {
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
               <label className="block font-semibold text-xs text-slate-700">
@@ -223,30 +216,6 @@ export const LoginView = ({ onNavigateRegister }) => {
             </button>
           </form>
 
-          {/* Quick API Connection Info Card */}
-          <div className="mt-5 p-3.5 bg-slate-50 rounded-xl border border-dashed border-slate-300 text-xs text-slate-600">
-            <div className="flex justify-between items-center mb-1.5">
-              <span className="text-slate-900 font-semibold inline-flex items-center gap-1.5">
-                <CheckCircle2 size={14} className="text-emerald-600" /> Live Backend API Active
-              </span>
-              <button
-                type="button"
-                onClick={() => {
-                  setUsername('anand.patil');
-                  setPassword('Password@1234');
-                  setErrorMessage('');
-                }}
-                className="bg-sky-50 text-sky-700 border border-sky-200 rounded-md px-2 py-0.5 text-xs font-semibold hover:bg-sky-100 transition cursor-pointer"
-              >
-                Auto Fill
-              </button>
-            </div>
-            <div className="text-xs text-slate-500">
-              Identifier: <strong className="text-slate-800 font-mono">anand.patil</strong> &bull; Password: <strong className="text-slate-800 font-mono">Password@1234</strong>
-            </div>
-          </div>
-
-          {/* Registration link */}
           <div className="mt-6 text-center text-sm text-slate-500">
             Don't have an account yet?{' '}
             <button
@@ -264,7 +233,6 @@ export const LoginView = ({ onNavigateRegister }) => {
         </div>
       </div>
 
-      {/* Forgot Password Modal */}
       <Modal
         isOpen={isForgotModalOpen}
         onClose={() => setIsForgotModalOpen(false)}

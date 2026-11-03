@@ -76,9 +76,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
 
   return (
     <div className="w-screen h-screen min-h-screen max-h-screen flex bg-white overflow-hidden m-0 p-0">
-      {/* Left Column: Full-Screen Hero Brand Section */}
       <div className="hidden lg:flex flex-none w-[40%] max-w-[40%] h-screen bg-gradient-to-br from-green-900 via-green-700 to-green-800 text-white p-12 flex-col justify-between relative overflow-y-auto">
-        {/* Overlay */}
         <div
           className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none mix-blend-overlay bg-[url('/dairy-hero.jpg')]"
         />
@@ -101,7 +99,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
             Register today for transparent milk collection slips, real-time fat & SNF testing rates, direct farmer bank transfers, or doorstep fresh milk delivery.
           </p>
 
-          {/* Highlights */}
           <div className="space-y-3.5">
             <div className="flex items-start gap-2.5">
               <CheckCircle2 size={18} className="text-emerald-300 mt-0.5 shrink-0" />
@@ -124,7 +121,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
           </div>
         </div>
 
-        {/* Bottom Switcher Card */}
         <div className="relative z-10 mt-8">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 flex items-center justify-between">
             <div>
@@ -142,10 +138,8 @@ export const RegisterView = ({ onNavigateLogin }) => {
         </div>
       </div>
 
-      {/* Right Column: Full-Screen Form Container with Clean Center Alignment */}
       <div className="flex-1 h-screen overflow-y-auto bg-white flex flex-col items-center px-6 sm:px-12 py-8">
         <div className="w-full max-w-lg my-auto py-4">
-          {/* Header */}
           <div className="mb-5">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-2 border border-emerald-100">
               <Sparkles size={14} /> New Account Registration
@@ -158,7 +152,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
             </p>
           </div>
 
-          {/* Account Type Selector Pills */}
           <div className="mb-4">
             <label className="block font-bold text-xs text-slate-700 mb-1.5">
               Select Account Type *
@@ -208,10 +201,8 @@ export const RegisterView = ({ onNavigateLogin }) => {
             </div>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {/* Full Name */}
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
                   Full Name *
@@ -229,7 +220,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 </div>
               </div>
 
-              {/* Mobile Phone */}
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
                   Mobile Number *
@@ -247,7 +237,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 </div>
               </div>
 
-              {/* Login Username */}
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
                   Login Username *
@@ -265,7 +254,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 </div>
               </div>
 
-              {/* Email */}
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
                   Email Address
@@ -282,7 +270,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 </div>
               </div>
 
-              {/* Address / Village */}
               <div className="sm:col-span-2 space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
                   {roleId === 'farmer' ? 'Village / Center Name' : (roleId === 'customer' ? 'Delivery Address' : 'Assigned Plant / Branch')}
@@ -299,7 +286,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 </div>
               </div>
 
-              {/* Password */}
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
                   Password *
@@ -325,7 +311,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 </div>
               </div>
 
-              {/* Confirm Password */}
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
                   Confirm Password *
@@ -344,7 +329,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
               </div>
             </div>
 
-            {/* Terms checkbox */}
             <div className="pt-1">
               <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-600 select-none">
                 <input
@@ -357,7 +341,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
               </label>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="w-full py-3 px-4 text-sm font-bold flex items-center justify-center gap-2 rounded-xl shadow-lg shadow-emerald-700/20 text-white bg-emerald-700 hover:bg-emerald-800 transition cursor-pointer mt-2"
@@ -366,7 +349,6 @@ export const RegisterView = ({ onNavigateLogin }) => {
             </button>
           </form>
 
-          {/* Switch to login link */}
           <div className="mt-5 text-center text-xs text-slate-500">
             Already have an account?{' '}
             <button

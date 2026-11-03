@@ -26,13 +26,11 @@ export const CustomersView = () => {
   const [subscriptionFilter, setSubscriptionFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');
 
-  // Modals
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isPayModalOpen, setIsPayModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
-  // Form State
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -43,7 +41,6 @@ export const CustomersView = () => {
     deliverySlot: 'Morning (6:30 AM - 7:30 AM)'
   });
 
-  // Payment State
   const [collectAmount, setCollectAmount] = useState('');
   const [payMethod, setPayMethod] = useState('UPI / GPay');
 
@@ -97,7 +94,6 @@ export const CustomersView = () => {
 
   return (
     <div>
-      {/* Title & Action */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Customers & Subscriptions</h1>
@@ -117,7 +113,6 @@ export const CustomersView = () => {
         </button>
       </div>
 
-      {/* Filter Bar */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-body p-4 sm:p-5">
           <div className="row g-3 align-items-center">
@@ -168,7 +163,6 @@ export const CustomersView = () => {
         </div>
       </div>
 
-      {/* Customers Table */}
       <div className="card-dairy">
         <div className="table-responsive">
           <table className="table-dairy">
@@ -281,7 +275,6 @@ export const CustomersView = () => {
         </div>
       </div>
 
-      {/* Add Customer Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
@@ -388,7 +381,6 @@ export const CustomersView = () => {
         </form>
       </Modal>
 
-      {/* Collect Payment Modal */}
       <Modal
         isOpen={isPayModalOpen}
         onClose={() => setIsPayModalOpen(false)}
@@ -438,7 +430,6 @@ export const CustomersView = () => {
         </form>
       </Modal>
 
-      {/* View Customer Ledger Modal */}
       <Modal
         isOpen={isViewModalOpen}
         onClose={() => setIsViewModalOpen(false)}

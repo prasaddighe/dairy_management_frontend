@@ -14,7 +14,6 @@ import { PrintReceiptModal } from '../../components/common/PrintReceiptModal';
 export const FarmerPortalView = () => {
   const { farmers, milkRecords, calculateRate, currentUser } = useDairy();
 
-  // Resolve dynamic logged-in farmer
   const farmer = farmers.find(f =>
     f.id === currentUser?.farmerId ||
     (currentUser?.phone && f.phone === currentUser.phone) ||
@@ -37,25 +36,21 @@ export const FarmerPortalView = () => {
     paymentStatus: 'Paid'
   };
 
-  // Records for this farmer
   const myMilkRecords = milkRecords.filter(r =>
     r.farmerId === farmer.id ||
     (currentUser?.farmerId && r.farmerId === currentUser.farmerId) ||
     (farmer.name && r.farmerName === farmer.name)
   );
 
-  // Rate calc test for farmer
   const [testType, setTestType] = useState('Cow');
   const [testFat, setTestFat] = useState('4.2');
   const [testSnf, setTestSnf] = useState('8.6');
   const testRate = calculateRate(testType, testFat, testSnf);
 
-  // Selected slip modal
   const [selectedSlip, setSelectedSlip] = useState(null);
 
   return (
     <div>
-      {/* Header Banner */}
       <div className="bg-gradient-to-br from-green-900 to-green-700 text-white rounded-2xl p-7 mb-7 shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-white text-emerald-800 text-2xl font-extrabold flex items-center justify-center shadow-lg shrink-0">
@@ -84,7 +79,6 @@ export const FarmerPortalView = () => {
         </div>
       </div>
 
-      {/* KPI Cards */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card primary">
@@ -139,9 +133,7 @@ export const FarmerPortalView = () => {
         </div>
       </div>
 
-      {/* Two Column Layout: Daily Records Table & Bank + Rate Calculator */}
       <div className="row g-4">
-        {/* Left: Daily Milk Supply Table */}
         <div className="col-12 col-lg-8">
           <div className="card-dairy">
             <div className="card-dairy-header">
@@ -209,9 +201,7 @@ export const FarmerPortalView = () => {
           </div>
         </div>
 
-        {/* Right: Bank Profile & Live Rate Calculator */}
         <div className="col-12 col-lg-4">
-          {/* Bank Account */}
           <div className="card-dairy mb-4">
             <div className="card-dairy-header">
               <div className="card-dairy-title">
@@ -236,7 +226,6 @@ export const FarmerPortalView = () => {
             </div>
           </div>
 
-          {/* Farmer Rate Estimator */}
           <div className="card-dairy">
             <div className="card-dairy-header">
               <div className="card-dairy-title">
@@ -293,7 +282,6 @@ export const FarmerPortalView = () => {
         </div>
       </div>
 
-      {/* Slip Modal */}
       {selectedSlip && (
         <PrintReceiptModal
           isOpen={!!selectedSlip}

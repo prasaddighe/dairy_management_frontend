@@ -19,7 +19,6 @@ export const Pagination = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Close items-per-page dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -32,7 +31,6 @@ export const Pagination = ({
     };
   }, []);
 
-  // Compute visible pages with delta logic
   const visiblePages = useMemo(() => {
     if (!totalPages || totalPages < 1) return [];
     if (totalPages === 1) return [1];
@@ -118,7 +116,6 @@ export const Pagination = ({
       id={baseId ? `${baseId}-container` : undefined}
       className={`flex flex-wrap items-center justify-between gap-3 ${className}`}
     >
-      {/* Left side: Showing count & Items per page dropdown */}
       <div className="flex items-center gap-3">
         {totalItems !== undefined && (
           <span className="text-xs text-slate-500">
@@ -168,7 +165,6 @@ export const Pagination = ({
         </div>
       </div>
 
-      {/* Right side: Numbered page navigation buttons */}
       <div className="flex items-center gap-1.5">
         <button
           type="button"

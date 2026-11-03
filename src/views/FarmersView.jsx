@@ -32,14 +32,12 @@ export const FarmersView = () => {
   const [villageFilter, setVillageFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');
 
-  // Modals
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isSettleModalOpen, setIsSettleModalOpen] = useState(false);
   const [selectedFarmer, setSelectedFarmer] = useState(null);
 
-  // Form State
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -52,15 +50,12 @@ export const FarmersView = () => {
     status: 'Active'
   });
 
-  // Payout Settlement Form State
   const [payoutAmount, setPayoutAmount] = useState('');
   const [payoutMethod, setPayoutMethod] = useState('Bank Transfer (NEFT)');
   const [payoutRef, setPayoutRef] = useState('');
 
-  // Unique villages
   const villages = ['All', ...new Set(farmers.map(f => f.village))];
 
-  // Open Edit
   const handleOpenEdit = (farmer) => {
     setSelectedFarmer(farmer);
     setFormData({
@@ -77,13 +72,11 @@ export const FarmersView = () => {
     setIsEditModalOpen(true);
   };
 
-  // Open View Profile
   const handleOpenView = (farmer) => {
     setSelectedFarmer(farmer);
     setIsViewModalOpen(true);
   };
 
-  // Open Settle
   const handleOpenSettle = (farmer) => {
     setSelectedFarmer(farmer);
     setPayoutAmount(farmer.pendingDue.toString());
@@ -91,7 +84,6 @@ export const FarmersView = () => {
     setIsSettleModalOpen(true);
   };
 
-  // Submit Add
   const handleAddSubmit = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.phone) {
@@ -108,7 +100,6 @@ export const FarmersView = () => {
     resetForm();
   };
 
-  // Submit Edit
   const handleEditSubmit = (e) => {
     e.preventDefault();
     updateFarmer(selectedFarmer.id, {
@@ -120,7 +111,6 @@ export const FarmersView = () => {
     setIsEditModalOpen(false);
   };
 
-  // Submit Payout Settlement
   const handleSettleSubmit = (e) => {
     e.preventDefault();
     const amount = parseFloat(payoutAmount);
@@ -146,7 +136,6 @@ export const FarmersView = () => {
     });
   };
 
-  // Filtered farmers
   const filteredFarmers = farmers.filter(f => {
     const matchesVillage = villageFilter === 'All' || f.village === villageFilter;
     const matchesStatus = statusFilter === 'All' || f.paymentStatus === statusFilter;
@@ -158,12 +147,10 @@ export const FarmersView = () => {
     return matchesVillage && matchesStatus && matchesSearch;
   });
 
-  // Farmer's milk records for profile modal
   const farmerMilkRecords = selectedFarmer ? milkRecords.filter(r => r.farmerId === selectedFarmer.id) : [];
 
   const [selectedFarmerIds, setSelectedFarmerIds] = useState([]);
 
-  // Column definitions for CommonTable
   const farmerColumns = useMemo(() => [
     {
       key: 'id',
@@ -338,7 +325,6 @@ export const FarmersView = () => {
     }
   ], [deleteFarmer]);
 
-  // Export handlers
   const handleFarmerExport = (format) => {
     if (format === 'print') {
       window.print();
@@ -410,7 +396,6 @@ export const FarmersView = () => {
 
   return (
     <div>
-      {/* Page Title & Actions */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Farmers Management</h1>
@@ -430,7 +415,6 @@ export const FarmersView = () => {
         </button>
       </div>
 
-      {/* Modern CommonTable Component */}
       <CommonTable
         columns={farmerColumns}
         data={filteredFarmers}
@@ -461,7 +445,6 @@ export const FarmersView = () => {
         onRowClick={(farmer) => handleOpenView(farmer)}
       />
 
-      {/* Add / Register Farmer Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
@@ -580,7 +563,6 @@ export const FarmersView = () => {
         </form>
       </Modal>
 
-      {/* Edit Farmer Modal */}
       <Modal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
@@ -686,7 +668,6 @@ export const FarmersView = () => {
         </form>
       </Modal>
 
-      {/* View Farmer Profile Modal */}
       <Modal
         isOpen={isViewModalOpen}
         onClose={() => setIsViewModalOpen(false)}
@@ -737,7 +718,6 @@ export const FarmersView = () => {
               </div>
             </div>
 
-            {/* Bank Info */}
             <div className="p-3.5 rounded-lg bg-amber-50 border border-amber-200 mb-5 flex items-center gap-3">
               <Building size={20} className="text-amber-600 shrink-0" />
               <div className="text-xs text-slate-700">
@@ -745,7 +725,6 @@ export const FarmersView = () => {
               </div>
             </div>
 
-            {/* Recent Supply Logs */}
             <div className="font-bold text-sm mb-2 text-slate-800">
               Recent Milk Intake Logs ({farmerMilkRecords.length})
             </div>
@@ -787,7 +766,6 @@ export const FarmersView = () => {
         )}
       </Modal>
 
-      {/* Settle Farmer Payment Modal */}
       <Modal
         isOpen={isSettleModalOpen}
         onClose={() => setIsSettleModalOpen(false)}

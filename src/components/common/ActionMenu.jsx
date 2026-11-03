@@ -30,7 +30,6 @@ export const ActionMenu = ({
   const handleToggle = (e) => {
     e.stopPropagation();
     if (!open && ref.current) {
-      // Auto-detect if near bottom of viewport
       const rect = ref.current.getBoundingClientRect();
       const spaceBelow = window.innerHeight - rect.bottom;
       setOpenUpward(forcedNearBottom || spaceBelow < 220);

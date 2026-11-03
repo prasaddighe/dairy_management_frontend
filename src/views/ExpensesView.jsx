@@ -60,7 +60,6 @@ export const ExpensesView = () => {
 
   return (
     <div>
-      {/* Title */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Dairy Plant Expenses</h1>
@@ -77,7 +76,6 @@ export const ExpensesView = () => {
         </button>
       </div>
 
-      {/* KPI Cards */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-md-6">
           <div className="stat-card danger">
@@ -106,7 +104,6 @@ export const ExpensesView = () => {
         </div>
       </div>
 
-      {/* Filter Bar */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-body p-4 sm:p-5">
           <div className="row g-3 align-items-center">
@@ -144,7 +141,6 @@ export const ExpensesView = () => {
         </div>
       </div>
 
-      {/* Expenses Table */}
       <div className="card-dairy">
         <div className="table-responsive">
           <table className="table-dairy">
@@ -196,7 +192,6 @@ export const ExpensesView = () => {
         </div>
       </div>
 
-      {/* Add Expense Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}

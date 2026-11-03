@@ -31,7 +31,6 @@ export const Navbar = ({ toggleSidebar }) => {
   const notifDropdownRef = useRef(null);
   const searchRef = useRef(null);
 
-  // Update clock every second
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
@@ -39,7 +38,6 @@ export const Navbar = ({ toggleSidebar }) => {
     return () => clearInterval(timer);
   }, []);
 
-  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (notifDropdownRef.current && !notifDropdownRef.current.contains(e.target)) {
@@ -55,7 +53,6 @@ export const Navbar = ({ toggleSidebar }) => {
 
   const unreadNotifs = notifications.filter(n => !n.read);
 
-  // Quick Global Search Filter
   const filteredFarmers = searchQuery.trim().length > 1
     ? farmers.filter(f => f.name.toLowerCase().includes(searchQuery.toLowerCase()) || f.id.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 3)
     : [];
@@ -81,7 +78,6 @@ export const Navbar = ({ toggleSidebar }) => {
           <Menu size={20} />
         </button>
 
-        {/* Global Search */}
         <div className="search-bar-wrapper" ref={searchRef}>
           <Search size={16} className="search-icon" />
           <input
@@ -183,7 +179,6 @@ export const Navbar = ({ toggleSidebar }) => {
       </div>
 
       <div className="navbar-right">
-        {/* Shift Badge & Switcher */}
         <button
           onClick={toggleShift}
           className={`btn-dairy ${currentShift === 'Morning' ? 'badge-dairy morning' : 'badge-dairy evening'} py-1.5 px-3 cursor-pointer text-xs`}
@@ -193,13 +188,11 @@ export const Navbar = ({ toggleSidebar }) => {
           <span>{currentShift} Shift</span>
         </button>
 
-        {/* Live Clock */}
         <div className="hidden md:flex items-center gap-1.5 text-slate-600 text-xs font-semibold px-2">
           <Clock size={15} className="text-slate-400" />
           <span className="mono-font">{currentTime}</span>
         </div>
 
-        {/* Notifications Dropdown */}
         <div className="relative" ref={notifDropdownRef}>
           <button
             className="btn-icon notification-bell-btn cursor-pointer"

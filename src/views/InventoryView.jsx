@@ -12,7 +12,6 @@ import { Modal } from '../components/common/Modal';
 export const InventoryView = () => {
   const { showToast } = useDairy();
 
-  // Raw Silo data
   const [silos] = useState([
     {
       id: 'SILO-01',
@@ -40,7 +39,6 @@ export const InventoryView = () => {
     }
   ]);
 
-  // Supplies Inventory (Animal Feed & Packaging)
   const [supplies] = useState([
     { id: 'SUP-01', name: 'Amul Dan Cattle Feed (50kg)', category: 'Animal Feed', current: 140, unit: 'Bags', min: 40, status: 'In Stock' },
     { id: 'SUP-02', name: 'Chelated Mineral Mixture (10kg)', category: 'Nutritional Supplements', current: 28, unit: 'Bags', min: 20, status: 'In Stock' },
@@ -49,7 +47,6 @@ export const InventoryView = () => {
     { id: 'SUP-05', name: 'Vacuum Barrier Film for Paneer', category: 'Packaging', current: 1200, unit: 'Sheets', min: 500, status: 'In Stock' }
   ]);
 
-  // Movement Log
   const [movementLogs, setMovementLogs] = useState([
     { id: 'MOV-101', date: '2026-10-21 09:30 AM', item: 'Food-Grade 1L LDPE Pouches', type: 'Stock In', qty: '+5,000 Pouches', source: 'Polypack Industries', by: 'Vikram Deshmukh' },
     { id: 'MOV-102', date: '2026-10-21 08:45 AM', item: 'Amul Dan Cattle Feed', type: 'Stock Out', qty: '-15 Bags', source: 'Issued to Farmer Anand Patil', by: 'Suresh Shinde' },
@@ -57,7 +54,6 @@ export const InventoryView = () => {
     { id: 'MOV-104', date: '2026-10-20 11:00 AM', item: '500g Glass Ghee Bottles', type: 'Stock Out', qty: '-40 Bottles', source: 'Used in Bilona Ghee packaging', by: 'Production Team' }
   ]);
 
-  // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [logForm, setLogForm] = useState({
     item: 'Amul Dan Cattle Feed (50kg)',
@@ -91,7 +87,6 @@ export const InventoryView = () => {
 
   return (
     <div>
-      {/* Title */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Dairy Inventory & Silos</h1>
@@ -108,7 +103,6 @@ export const InventoryView = () => {
         </button>
       </div>
 
-      {/* Silo Status Gauges */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-header">
           <div className="card-dairy-title">
@@ -152,7 +146,6 @@ export const InventoryView = () => {
         </div>
       </div>
 
-      {/* Supplies & Raw Materials Table */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-header">
           <div className="card-dairy-title">
@@ -210,7 +203,6 @@ export const InventoryView = () => {
         </div>
       </div>
 
-      {/* Inventory Movement History Log */}
       <div className="card-dairy">
         <div className="card-dairy-header">
           <div className="card-dairy-title">
@@ -252,7 +244,6 @@ export const InventoryView = () => {
         </div>
       </div>
 
-      {/* Stock In / Out Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

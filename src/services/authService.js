@@ -1,4 +1,3 @@
-// Authentication Service for AmritDhara Smart Dairy API
 const API_BASE_URL = import.meta.env?.VITE_API_URL || 'https://dairy-management-backend-b2c8.onrender.com/api/v1';
 
 const TOKEN_KEY = 'amritdhara_auth_token';
@@ -30,11 +29,6 @@ export const authService = {
     localStorage.removeItem(USER_KEY);
   },
 
-  /**
-   * Login user with backend API:
-   * POST /api/v1/auth/login
-   * payload: { identifier, password, rememberMe }
-   */
   async login(identifier, password, rememberMe = true) {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -52,7 +46,6 @@ export const authService = {
       const data = await response.json().catch(() => null);
 
       if (!response.ok || !data?.success) {
-        // Extract friendly error message from API response
         let errorMsg = data?.error?.message || data?.message;
         if (!errorMsg && data?.error?.details && Array.isArray(data.error.details)) {
           errorMsg = data.error.details.map(d => d.message).join(', ');
@@ -74,7 +67,6 @@ export const authService = {
         };
       }
 
-      // Success: Save token & return mapped user
       const { token, user } = data.data || {};
       if (token) {
         this.setToken(token, rememberMe);
@@ -98,13 +90,8 @@ export const authService = {
     }
   },
 
-  /**
-   * Register user with backend API:
-   * POST /api/v1/auth/register
-   */
   async register(registrationData) {
     try {
-      // Map frontend roleId to backend accountType
       let accountType = 'dairy_farmer';
       if (registrationData.roleId === 'customer') accountType = 'customer';
       else if (registrationData.roleId === 'operator' || registrationData.roleId === 'dairy_staff') accountType = 'dairy_staff';
@@ -167,10 +154,6 @@ export const authService = {
     }
   },
 
-  /**
-   * Get authenticated user profile:
-   * GET /api/v1/auth/me
-   */
   async getProfile() {
     const token = this.getToken();
     if (!token) return { success: false, error: 'No token found' };
@@ -192,9 +175,6 @@ export const authService = {
     }
   },
 
-  /**
-   * Logout user
-   */
   async logout() {
     const token = this.getToken();
     try {
@@ -211,10 +191,6 @@ export const authService = {
     }
   },
 
-  /**
-   * Get dynamic users list from backend:
-   * GET /api/v1/users
-   */
   async getUsers(page = 1, limit = 50) {
     const token = this.getToken();
     try {
@@ -231,10 +207,6 @@ export const authService = {
     }
   },
 
-  /**
-   * Create user on backend:
-   * POST /api/v1/users/
-   */
   async createUser(userData) {
     const token = this.getToken();
     try {
@@ -253,9 +225,6 @@ export const authService = {
     }
   },
 
-  /**
-   * Maps backend user entity to the React App's internal user format
-   */
   mapBackendUser(backendUser, token) {
     if (!backendUser) return null;
 

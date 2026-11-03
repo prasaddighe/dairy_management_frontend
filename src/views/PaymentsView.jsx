@@ -25,20 +25,17 @@ export const PaymentsView = () => {
   const [activeSubTab, setActiveSubTab] = useState('farmers'); // 'farmers' | 'customers' | 'expenses'
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Settle Farmer Modal
   const [selectedFarmer, setSelectedFarmer] = useState(null);
   const [payoutAmount, setPayoutAmount] = useState('');
   const [payoutMethod, setPayoutMethod] = useState('Bank Transfer (NEFT)');
   const [payoutRef, setPayoutRef] = useState('');
   const [isFarmerModalOpen, setIsFarmerModalOpen] = useState(false);
 
-  // Collect Customer Modal
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [collectAmount, setCollectAmount] = useState('');
   const [collectMethod, setCollectMethod] = useState('UPI / GPay');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 
-  // Computed Financials
   const totalFarmerPending = farmers.reduce((acc, f) => acc + (f.pendingDue || 0), 0);
   const totalCustomerReceivables = customers.reduce((acc, c) => acc + (c.balance || 0), 0);
   const totalRevenue = sales.reduce((acc, s) => acc + s.total, 0);
@@ -68,7 +65,6 @@ export const PaymentsView = () => {
 
   return (
     <div>
-      {/* Title */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Payments & Accounting Ledger</h1>
@@ -87,7 +83,6 @@ export const PaymentsView = () => {
         </div>
       </div>
 
-      {/* KPI Financial Overview Cards */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="stat-card danger">
@@ -142,7 +137,6 @@ export const PaymentsView = () => {
         </div>
       </div>
 
-      {/* Navigation Sub-Tabs */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-body p-3.5 sm:p-5">
           <div className="flex gap-3 flex-wrap items-center justify-between">
@@ -181,7 +175,6 @@ export const PaymentsView = () => {
         </div>
       </div>
 
-      {/* Tab 1: Farmer Settlements */}
       {activeSubTab === 'farmers' && (
         <div className="card-dairy">
           <div className="card-dairy-header">
@@ -261,7 +254,6 @@ export const PaymentsView = () => {
         </div>
       )}
 
-      {/* Tab 2: Customer Outstanding Ledger */}
       {activeSubTab === 'customers' && (
         <div className="card-dairy">
           <div className="card-dairy-header">
@@ -337,7 +329,6 @@ export const PaymentsView = () => {
         </div>
       )}
 
-      {/* Tab 3: Operating Expenses */}
       {activeSubTab === 'expenses' && (
         <div className="card-dairy">
           <div className="card-dairy-header">
@@ -387,7 +378,6 @@ export const PaymentsView = () => {
         </div>
       )}
 
-      {/* Farmer Settle Modal */}
       <Modal
         isOpen={isFarmerModalOpen}
         onClose={() => setIsFarmerModalOpen(false)}
@@ -448,7 +438,6 @@ export const PaymentsView = () => {
         </form>
       </Modal>
 
-      {/* Customer Collect Modal */}
       <Modal
         isOpen={isCustomerModalOpen}
         onClose={() => setIsCustomerModalOpen(false)}

@@ -2,9 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 let toastId = 0;
 
-/**
- * Dispatch a toast notification globally across the application.
- */
 export function dispatchToast(message, type = 'info', duration) {
   const normalizedMessage = (message || '')?.trim?.();
   if (!normalizedMessage) return;
@@ -31,9 +28,6 @@ export function clearAllToasts() {
   window?.dispatchEvent?.(new CustomEvent('app:toast:clear'));
 }
 
-/**
- * Toast hook for components
- */
 export function useToast() {
   const [toasts, setToasts] = useState([]);
 

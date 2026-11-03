@@ -86,7 +86,6 @@ export const SYSTEM_ROLES = [
   }
 ];
 
-// Initial Seed Data
 const INITIAL_FARMERS = [
   {
     id: 'FRM-1024',
@@ -280,7 +279,6 @@ const getYesterdayStr = () => {
 };
 
 const INITIAL_MILK_COLLECTIONS = [
-  // Today's Morning Shift
   {
     id: 'COL-901',
     slipNo: 'SLIP-M-01',
@@ -361,7 +359,6 @@ const INITIAL_MILK_COLLECTIONS = [
     totalAmount: 2583.00,
     recordedBy: 'Suresh Shinde'
   },
-  // Today's Evening Shift
   {
     id: 'COL-906',
     slipNo: 'SLIP-E-01',
@@ -426,7 +423,6 @@ const INITIAL_MILK_COLLECTIONS = [
     totalAmount: 2527.20,
     recordedBy: 'Suresh Shinde'
   },
-  // Yesterday's Evening Records for History
   {
     id: 'COL-890',
     slipNo: 'SLIP-Y-07',
@@ -745,7 +741,6 @@ const INITIAL_NOTIFICATIONS = [
 ];
 
 export const DairyProvider = ({ children }) => {
-  // Current active user
   const [currentUser, setCurrentUser] = useState(() => {
     const saved = localStorage.getItem('amritdhara_user');
     if (!saved || saved === 'null' || saved === 'undefined') return null;
@@ -762,7 +757,6 @@ export const DairyProvider = ({ children }) => {
     return hour < 13 ? 'Morning' : 'Evening';
   });
 
-  // Data states with localStorage persistence
   const [farmers, setFarmers] = useState(() => {
     const saved = localStorage.getItem('amritdhara_farmers');
     return saved ? JSON.parse(saved) : INITIAL_FARMERS;
@@ -814,13 +808,11 @@ export const DairyProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : INITIAL_NOTIFICATIONS;
   });
 
-  // User management state
   const [users, setUsers] = useState(() => {
     const saved = localStorage.getItem('amritdhara_users');
     return saved ? JSON.parse(saved) : SYSTEM_ROLES;
   });
 
-  // Settings
   const [settings, setSettings] = useState({
     dairyName: 'AmritDhara Smart Dairy Cooperative',
     registrationNo: 'REG/COOP/PUN/2018/8892',
@@ -836,7 +828,6 @@ export const DairyProvider = ({ children }) => {
     gstNumber: '27AABCA1234F1Z8'
   });
 
-  // Toast system
   const [toast, setToast] = useState(null);
 
   const showToast = (message, type = 'success') => {
@@ -845,7 +836,6 @@ export const DairyProvider = ({ children }) => {
     setTimeout(() => setToast(null), 3800);
   };
 
-  // On mount: dynamically fetch user profile if token is present in storage
   useEffect(() => {
     const token = authService.getToken();
     if (token) {
@@ -860,7 +850,6 @@ export const DairyProvider = ({ children }) => {
     }
   }, []);
 
-  // Sync state to localStorage
   useEffect(() => {
     localStorage.setItem('amritdhara_user', JSON.stringify(currentUser));
   }, [currentUser]);
@@ -901,7 +890,6 @@ export const DairyProvider = ({ children }) => {
     localStorage.setItem('amritdhara_users', JSON.stringify(users));
   }, [users]);
 
-  // User Management Actions
   const addUser = (userData) => {
     const roleConfig = SYSTEM_ROLES.find(r => r.id === userData.roleId) || {
       name: userData.roleName || 'Staff User',
@@ -939,7 +927,6 @@ export const DairyProvider = ({ children }) => {
   };
 
   const registerUser = async ({ fullName, userName, email, phone, roleId, address, password }) => {
-    // Attempt registration with backend API
     const apiResult = await authService.register({
       fullName,
       userName,
@@ -1014,7 +1001,6 @@ export const DairyProvider = ({ children }) => {
     return newUser;
   };
 
-  // Actions
   const switchRole = (roleId) => {
     const roleObj = SYSTEM_ROLES.find(r => r.id === roleId) || users.find(u => u.id === roleId || u.roleId === roleId);
     if (roleObj) {
@@ -1031,14 +1017,12 @@ export const DairyProvider = ({ children }) => {
     }
     const cleanId = username.trim().toLowerCase();
 
-    // 1. Authenticate with backend API: POST /api/v1/auth/login
     try {
       const apiResult = await authService.login(username, password, rememberMe);
 
       if (apiResult.success && apiResult.user) {
         const authUser = apiResult.user;
 
-        // If logging in as farmer, dynamically link or register in farmers state
         if (authUser.id === 'farmer') {
           setFarmers(prev => {
             const exists = prev.find(f =>
@@ -1077,7 +1061,6 @@ export const DairyProvider = ({ children }) => {
           });
         }
 
-        // Dynamically add to users state if not present
         setUsers(prev => {
           if (!prev.some(u => u.userName === authUser.userName)) {
             return [authUser, ...prev];
@@ -1091,32 +1074,27 @@ export const DairyProvider = ({ children }) => {
         return { success: true, user: authUser };
       }
 
-      // Check if this username matches a built-in demo account
       const isKnownDemoUser = SYSTEM_ROLES.some(r =>
         (r.userName && r.userName.toLowerCase() === cleanId) ||
         (r.email && r.email.toLowerCase() === cleanId) ||
         (r.id && r.id.toLowerCase() === cleanId)
       ) || cleanId === 'admin' || cleanId === 'superadmin';
 
-      // If backend explicitly rejected credentials and it's NOT a demo account fallback
       if (!apiResult.isNetworkError && !isKnownDemoUser) {
         showToast(apiResult.error || 'Invalid credentials or inactive account.', 'error');
         return { success: false, error: apiResult.error };
       }
 
-      // 2. Demo & Offline Fallback: check local mock users & roles
       let matched = users.find(u =>
         (u.userName && u.userName.toLowerCase() === cleanId) ||
         (u.email && u.email.toLowerCase() === cleanId) ||
         (u.id && u.id.toLowerCase() === cleanId)
       );
 
-      // Allow quick 'admin' or 'superadmin' login
       if (!matched && (cleanId === 'admin' || cleanId === 'superadmin' || cleanId === 'super_admin')) {
         matched = users.find(u => u.id === 'super_admin' || u.roleId === 'super_admin') || SYSTEM_ROLES[0];
       }
 
-      // Fallback to SYSTEM_ROLES default definitions
       if (!matched) {
         matched = SYSTEM_ROLES.find(r =>
           (r.userName && r.userName.toLowerCase() === cleanId) ||
@@ -1125,7 +1103,6 @@ export const DairyProvider = ({ children }) => {
         );
       }
 
-      // Check in registered farmers
       if (!matched) {
         const f = farmers.find(item =>
           (item.code && item.code.toLowerCase() === cleanId) ||
@@ -1148,7 +1125,6 @@ export const DairyProvider = ({ children }) => {
         }
       }
 
-      // Check in customers
       if (!matched) {
         const c = customers.find(item =>
           (item.id && item.id.toLowerCase() === cleanId) ||
@@ -1197,15 +1173,12 @@ export const DairyProvider = ({ children }) => {
     showToast('You have been logged out safely.', 'info');
   };
 
-  // Milk Collection Rate Calculator
   const calculateRate = (milkType, fat, snf) => {
     const f = parseFloat(fat) || 0;
     const s = parseFloat(snf) || 0;
     if (milkType === 'Cow') {
-      // Cow formula
       return +(settings.cowBaseRate + ((f - 3.5) * settings.cowFatMultiplier) + ((s - 8.5) * settings.cowSnfMultiplier)).toFixed(2);
     } else {
-      // Buffalo formula
       return +(settings.buffaloBaseRate + ((f - 6.0) * settings.buffaloFatMultiplier) + ((s - 9.0) * settings.buffaloSnfMultiplier)).toFixed(2);
     }
   };
@@ -1221,7 +1194,6 @@ export const DairyProvider = ({ children }) => {
     };
     setMilkRecords([newRecord, ...milkRecords]);
 
-    // Update farmer supplied milk & dues
     setFarmers(prev => prev.map(f => {
       if (f.id === record.farmerId) {
         return {
@@ -1329,7 +1301,6 @@ export const DairyProvider = ({ children }) => {
     };
     setSales([newSale, ...sales]);
 
-    // Deduct stock
     saleData.items.forEach(item => {
       updateProductStock(item.productId, -item.qty);
     });
@@ -1365,7 +1336,6 @@ export const DairyProvider = ({ children }) => {
       return f;
     }));
 
-    // Add notification
     const farmer = farmers.find(f => f.id === farmerId);
     showToast(`Payment of ₹${amount} settled for ${farmer ? farmer.name : farmerId} via ${method}${refNo ? ` (Ref: ${refNo})` : ''}!`, 'success');
   };

@@ -30,20 +30,16 @@ export const MilkCollectionView = () => {
     showToast
   } = useDairy();
 
-  // Filters
   const [shiftFilter, setShiftFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [dateFilter, setDateFilter] = useState('');
 
-  // Selection for bulk actions
   const [selectedSlips, setSelectedSlips] = useState([]);
 
-  // Modal & Form States
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
-  // New Record Form State
   const [selectedFarmerId, setSelectedFarmerId] = useState(farmers[0]?.id || '');
   const [milkType, setMilkType] = useState('Cow');
   const [shift, setShift] = useState(currentShift);
@@ -51,14 +47,11 @@ export const MilkCollectionView = () => {
   const [fat, setFat] = useState('4.2');
   const [snf, setSnf] = useState('8.6');
 
-  // Auto calculate rate & total
   const calculatedRate = calculateRate(milkType, fat, snf);
   const calculatedTotal = (parseFloat(quantity) || 0) * calculatedRate;
 
-  // Selected Farmer Object
   const selectedFarmer = farmers.find(f => f.id === selectedFarmerId);
 
-  // Handle Form Submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!quantity || parseFloat(quantity) <= 0) {
@@ -79,13 +72,10 @@ export const MilkCollectionView = () => {
     });
 
     setIsAddModalOpen(false);
-    // Reset form
     setQuantity('');
-    // Offer to immediately print slip!
     setSelectedReceipt(newRecord);
   };
 
-  // Filtered records
   const filteredRecords = useMemo(() => {
     return milkRecords.filter(r => {
       const matchesShift = shiftFilter === 'All' || r.shift === shiftFilter;
@@ -102,7 +92,6 @@ export const MilkCollectionView = () => {
   const totalFilteredLiters = filteredRecords.reduce((acc, r) => acc + (parseFloat(r.quantity) || 0), 0);
   const totalFilteredAmount = filteredRecords.reduce((acc, r) => acc + (parseFloat(r.totalAmount) || 0), 0);
 
-  // Export to CSV helper
   const handleExportCSV = (recordsToExport = filteredRecords) => {
     const list = Array.isArray(recordsToExport) && recordsToExport.length > 0 ? recordsToExport : filteredRecords;
     const headers = ['Slip No,Date,Time,Shift,Farmer ID,Farmer Name,Type,Quantity(L),Fat(%),SNF(%),Rate,Total Amount,Recorded By\n'];
@@ -120,7 +109,6 @@ export const MilkCollectionView = () => {
     showToast(`Exported ${list.length} milk records to CSV`, 'success');
   };
 
-  // Table Column Definitions
   const columns = useMemo(() => [
     {
       key: 'slipNo',
@@ -290,7 +278,6 @@ export const MilkCollectionView = () => {
 
   return (
     <div>
-      {/* 1. TOP HEADER & PRIMARY ACTIONS */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
@@ -327,7 +314,6 @@ export const MilkCollectionView = () => {
         </div>
       </div>
 
-      {/* 2. SUMMARY KPI STRIP */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-md-4">
           <div className="stat-card primary">
@@ -379,11 +365,9 @@ export const MilkCollectionView = () => {
         </div>
       </div>
 
-      {/* 3. FILTER TOOLBAR RIBBON */}
       <div className="card-dairy mb-4 relative z-30 bg-white border border-slate-200 overflow-visible">
         <div className="card-dairy-body p-3.5 sm:p-5 overflow-visible">
           <div className="row g-3 align-items-center">
-            {/* Shift Tabs */}
             <div className="col-12 col-md-auto">
               <div className="tab-pills p-1">
                 <button
@@ -410,7 +394,6 @@ export const MilkCollectionView = () => {
               </div>
             </div>
 
-            {/* Milk Type Filter */}
             <div className="col-6 col-md-auto">
               <CustomDropdown
                 options={[
@@ -425,7 +408,6 @@ export const MilkCollectionView = () => {
               />
             </div>
 
-            {/* Date Filter */}
             <div className="col-6 col-md-auto">
               <div className="flex items-center gap-1.5">
                 <Calendar size={15} className="text-slate-400" />
@@ -438,7 +420,6 @@ export const MilkCollectionView = () => {
               </div>
             </div>
 
-            {/* Search Input */}
             <div className="col-12 col-md">
               <div className="relative">
                 <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -461,7 +442,6 @@ export const MilkCollectionView = () => {
               </div>
             </div>
 
-            {/* Reset Filters */}
             {(shiftFilter !== 'All' || typeFilter !== 'All' || dateFilter || searchTerm) && (
               <div className="col-auto">
                 <button
@@ -482,7 +462,6 @@ export const MilkCollectionView = () => {
         </div>
       </div>
 
-      {/* Milk Intake Data Table */}
       <CommonTable
         columns={columns}
         data={filteredRecords}
@@ -534,7 +513,6 @@ export const MilkCollectionView = () => {
         }
       />
 
-      {/* 5. NEW MILK INTAKE ENTRY MODAL */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
@@ -553,7 +531,6 @@ export const MilkCollectionView = () => {
       >
         <form onSubmit={handleSubmit}>
           <div className="row g-3">
-            {/* Farmer Selector */}
             <div className="col-12 col-md-6">
               <label className="form-label">Select Registered Farmer *</label>
               <select
@@ -570,7 +547,6 @@ export const MilkCollectionView = () => {
               </select>
             </div>
 
-            {/* Shift */}
             <div className="col-6 col-md-3">
               <label className="form-label">Shift *</label>
               <select
@@ -583,7 +559,6 @@ export const MilkCollectionView = () => {
               </select>
             </div>
 
-            {/* Milk Type */}
             <div className="col-6 col-md-3">
               <label className="form-label">Milk Variety *</label>
               <select
@@ -605,7 +580,6 @@ export const MilkCollectionView = () => {
               </select>
             </div>
 
-            {/* Quantity */}
             <div className="col-12 col-md-4">
               <label className="form-label">Milk Quantity (Liters) *</label>
               <div className="input-group-dairy">
@@ -624,7 +598,6 @@ export const MilkCollectionView = () => {
               </div>
             </div>
 
-            {/* Fat % */}
             <div className="col-6 col-md-4">
               <label className="form-label">Fat % (Lacto Reading) *</label>
               <div className="input-group-dairy">
@@ -642,7 +615,6 @@ export const MilkCollectionView = () => {
               </div>
             </div>
 
-            {/* SNF % */}
             <div className="col-6 col-md-4">
               <label className="form-label">SNF % (Solids-Not-Fat) *</label>
               <div className="input-group-dairy">
@@ -661,7 +633,6 @@ export const MilkCollectionView = () => {
             </div>
           </div>
 
-          {/* Live Automatic Calculation Box */}
           <div className="mt-6 p-5 rounded-xl bg-slate-50 border border-slate-200">
             <div className="flex items-center gap-2 mb-3">
               <Calculator size={18} className="text-emerald-700" />
@@ -700,7 +671,6 @@ export const MilkCollectionView = () => {
         </form>
       </Modal>
 
-      {/* 6. PRINT THERMAL SLIP MODAL */}
       {selectedReceipt && (
         <PrintReceiptModal
           isOpen={!!selectedReceipt}

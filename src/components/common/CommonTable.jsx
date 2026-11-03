@@ -23,34 +23,27 @@ export const CommonTable = ({
   skeletonRows = 6,
   title,
   subtitle,
-  // Selection
   showCheckbox = false,
   selectedItems = [],
   onSelectionChange,
   keyExtractor = (item, idx) => item?.id || idx,
   bulkActionNode,
-  // Search & Filtering
   searchable = true,
   searchPlaceholder = 'Search records...',
   searchValue,
   onSearchChange,
-  // Density & View
   defaultDense = false,
   densityToggle = true,
-  // Export
   exportFormats = ['csv'],
   onExport,
   exporting = false,
   extraToolbar,
-  // Pagination
   pagination = true,
   defaultPageSize = 10,
   pageSizeOptions = [10, 25, 50, 100],
-  // Empty State
   emptyTitle = 'No records found',
   emptyMessage = 'No matching entries found for current filters.',
   onEmptyReset,
-  // Styling
   className = '',
   tableClassName = '',
   onRowClick,
@@ -66,7 +59,6 @@ export const CommonTable = ({
 
   const exportDropdownRef = useRef(null);
 
-  // Close export dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (exportDropdownRef.current && !exportDropdownRef.current.contains(e.target)) {
@@ -77,7 +69,6 @@ export const CommonTable = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Effective search value
   const activeSearch = searchValue !== undefined ? searchValue : localSearch;
   const handleSearchInput = (val) => {
     if (onSearchChange) {
@@ -88,7 +79,6 @@ export const CommonTable = ({
     }
   };
 
-  // Filter data if internal search is used
   const filteredData = useMemo(() => {
     if (searchValue !== undefined || !activeSearch) return data;
     const q = activeSearch.toLowerCase().trim();
@@ -101,7 +91,6 @@ export const CommonTable = ({
     });
   }, [data, activeSearch, searchValue]);
 
-  // Sort data
   const sortedData = useMemo(() => {
     if (!sort) return filteredData;
     const col = columns.find(c => c.key === sort.key || c.id === sort.key);
@@ -124,7 +113,6 @@ export const CommonTable = ({
     });
   }, [filteredData, sort, columns]);
 
-  // Pagination calculation
   const totalItems = sortedData.length;
   const totalPages = pagination ? Math.max(1, Math.ceil(totalItems / pageSize)) : 1;
   const safePage = Math.min(currentPage, totalPages);
@@ -135,7 +123,6 @@ export const CommonTable = ({
     return sortedData.slice(start, start + pageSize);
   }, [sortedData, pagination, safePage, pageSize]);
 
-  // Column Sort Toggle
   const handleSort = (col) => {
     if (!col.sortable) return;
     const key = col.key || col.id;
@@ -148,7 +135,6 @@ export const CommonTable = ({
     });
   };
 
-  // Selection Logic
   const selectedKeySet = useMemo(() => {
     return new Set(selectedItems.map((item, idx) => keyExtractor(item, idx)));
   }, [selectedItems, keyExtractor]);
@@ -184,7 +170,6 @@ export const CommonTable = ({
     }
   };
 
-  // Default CSV Exporter if onExport not provided
   const handleDefaultExport = (format) => {
     if (onExport) {
       onExport(format);
@@ -218,10 +203,8 @@ export const CommonTable = ({
 
   return (
     <div className={cn('custom-table-card flex flex-col rounded-2xl border border-slate-200 bg-white shadow-sm relative', className)}>
-      {/* 1. TOP TOOLBAR */}
       {(title || subtitle || searchable || densityToggle || exportFormats.length > 0 || extraToolbar) && (
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 bg-white px-5 py-3.5 relative z-20 overflow-visible rounded-t-2xl">
-          {/* Title & Subtitle */}
           <div className="min-w-0">
             {title && (
               <h3 className="text-base font-bold text-slate-800 m-0 tracking-tight flex items-center gap-2">
@@ -240,11 +223,9 @@ export const CommonTable = ({
             )}
           </div>
 
-          {/* Right Toolbar Controls */}
           <div className="flex flex-wrap items-center gap-2">
             {extraToolbar}
 
-            {/* Built-in Search */}
             {searchable && (
               <div className="relative w-56 sm:w-64">
                 <input
@@ -268,7 +249,6 @@ export const CommonTable = ({
               </div>
             )}
 
-            {/* Density Toggle Button */}
             {densityToggle && (
               <button
                 type="button"
@@ -280,7 +260,6 @@ export const CommonTable = ({
               </button>
             )}
 
-            {/* Export Dropdown */}
             {exportFormats && exportFormats.length > 0 && (
               <div className="relative" ref={exportDropdownRef}>
                 <button
@@ -323,13 +302,10 @@ export const CommonTable = ({
         </div>
       )}
 
-      {/* 2. TABLE BODY CONTAINER */}
       <div className="w-full overflow-x-auto overflow-y-auto" style={{ maxHeight: maxBodyHeight || 'calc(100vh - 300px)' }}>
         <table className={cn('w-full border-collapse text-left text-xs', tableClassName)}>
-          {/* Header */}
           <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-sm border-b border-slate-200 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
             <tr>
-              {/* Checkbox Column */}
               {showCheckbox && (
                 <th className="w-10 px-3 py-3 text-center align-middle sticky left-0 z-20 bg-slate-50">
                   <input
@@ -344,7 +320,6 @@ export const CommonTable = ({
                 </th>
               )}
 
-              {/* Columns */}
               {columns.map((col, cIdx) => {
                 const isSortActive = sort?.key === (col.key || col.id);
                 const alignClass = col.align === 'center' ? 'text-center' : col.align === 'right' ? 'text-right' : 'text-left';
@@ -383,10 +358,8 @@ export const CommonTable = ({
             </tr>
           </thead>
 
-          {/* Body Rows */}
           <tbody className="divide-y divide-slate-100">
             {loading ? (
-              // Skeleton Loader Rows
               Array.from({ length: skeletonRows }).map((_, rIdx) => (
                 <tr key={rIdx} className="animate-pulse">
                   {showCheckbox && (
@@ -402,7 +375,6 @@ export const CommonTable = ({
                 </tr>
               ))
             ) : paginatedData.length > 0 ? (
-              // Real Data Rows
               paginatedData.map((row, rIdx) => {
                 const k = keyExtractor(row, rIdx);
                 const isSelected = selectedKeySet.has(k);
@@ -419,7 +391,6 @@ export const CommonTable = ({
                       customRowClass
                     )}
                   >
-                    {/* Row Checkbox */}
                     {showCheckbox && (
                       <td
                         onClick={(e) => e.stopPropagation()}
@@ -434,7 +405,6 @@ export const CommonTable = ({
                       </td>
                     )}
 
-                    {/* Cells */}
                     {columns.map((col, cIdx) => {
                       const alignClass = col.align === 'center' ? 'text-center' : col.align === 'right' ? 'text-right' : 'text-left';
                       const cellContent = col.render
@@ -460,7 +430,6 @@ export const CommonTable = ({
                 );
               })
             ) : (
-              // Empty State
               <tr>
                 <td colSpan={columns.length + (showCheckbox ? 1 : 0)} className="py-12 px-4 text-center">
                   <div className="flex flex-col items-center justify-center max-w-sm mx-auto text-center">
@@ -490,7 +459,6 @@ export const CommonTable = ({
         </table>
       </div>
 
-      {/* 3. FLOATING BULK ACTION BAR (when rows selected) */}
       {showCheckbox && selectedItems.length > 0 && (
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 px-5 py-2.5 rounded-full border border-emerald-600/30 bg-slate-900/95 text-white shadow-xl backdrop-blur-md animate-in slide-in-from-bottom-3 duration-200">
           <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
@@ -535,7 +503,6 @@ export const CommonTable = ({
         </div>
       )}
 
-      {/* Footer Pagination */}
       {pagination && !loading && sortedData.length > 0 && (
         <div className="border-t border-slate-100 bg-white px-5 py-3">
           <Pagination

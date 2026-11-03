@@ -9,7 +9,6 @@ export const STATUS_TONE_CLASSES = {
   neutral: { badge: 'bg-slate-100 text-slate-700', dot: 'bg-slate-400' },
 };
 
-// Kept for backward compatibility if imported elsewhere
 export const STATUS_TONES = {
   success: { bg: '#dcfce7', text: '#166534', dot: '#22c55e' },
   danger:  { bg: '#fee2e2', text: '#991b1b', dot: '#ef4444' },

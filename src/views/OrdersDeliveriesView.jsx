@@ -17,7 +17,6 @@ export const OrdersDeliveriesView = () => {
   const [statusFilter, setStatusFilter] = useState('All');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  // New Order / Delivery Form
   const [formData, setFormData] = useState({
     customerName: '',
     phone: '',
@@ -34,7 +33,6 @@ export const OrdersDeliveriesView = () => {
       showToast('Please fill customer name and address', 'warning');
       return;
     }
-    // We can add to deliveries
     const newDel = {
       ...formData,
       id: `DEL-${Date.now().toString().slice(-3)}`,
@@ -58,7 +56,6 @@ export const OrdersDeliveriesView = () => {
 
   return (
     <div>
-      {/* Title */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Orders & Delivery Logistics</h1>
@@ -75,7 +72,6 @@ export const OrdersDeliveriesView = () => {
         </button>
       </div>
 
-      {/* KPI Cards */}
       <div className="row g-3 mb-4">
         <div className="col-12 col-md-4">
           <div className="stat-card primary">
@@ -121,7 +117,6 @@ export const OrdersDeliveriesView = () => {
         </div>
       </div>
 
-      {/* Filter Tabs */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-body p-3.5 sm:p-5">
           <div className="flex flex-wrap gap-4 items-center justify-between">
@@ -166,7 +161,6 @@ export const OrdersDeliveriesView = () => {
         </div>
       </div>
 
-      {/* Deliveries Grid */}
       <div className="row g-3">
         {filteredDeliveries.map(del => {
           const isDelivered = del.status === 'Delivered';
@@ -241,7 +235,6 @@ export const OrdersDeliveriesView = () => {
         })}
       </div>
 
-      {/* Schedule Delivery Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}

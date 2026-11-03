@@ -21,7 +21,6 @@ export const MilkProductsView = () => {
   const [stockAdjustDelta, setStockAdjustDelta] = useState(10);
   const [isAdjustModalOpen, setIsAdjustModalOpen] = useState(false);
 
-  // New Product Form
   const [formData, setFormData] = useState({
     name: '',
     category: 'Liquid Milk',
@@ -68,7 +67,6 @@ export const MilkProductsView = () => {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Dairy Products & Stock</h1>
@@ -93,7 +91,6 @@ export const MilkProductsView = () => {
         </div>
       </div>
 
-      {/* Hero Showcase Card */}
       <div className="card-dairy mb-4 overflow-hidden">
         <div className="flex flex-wrap items-center bg-gradient-to-br from-green-900 to-green-800 text-white rounded-2xl overflow-hidden">
           <div className="flex-1 basis-[340px] p-6 sm:p-7">
@@ -113,7 +110,6 @@ export const MilkProductsView = () => {
         </div>
       </div>
 
-      {/* Filter Bar */}
       <div className="card-dairy mb-4">
         <div className="card-dairy-body p-4 sm:p-5">
           <div className="row g-3 align-items-center">
@@ -151,7 +147,6 @@ export const MilkProductsView = () => {
         </div>
       </div>
 
-      {/* Products Grid & Table */}
       <div className="card-dairy">
         <div className="table-responsive">
           <table className="table-dairy">
@@ -233,7 +228,6 @@ export const MilkProductsView = () => {
         </div>
       </div>
 
-      {/* Add Product Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
@@ -349,7 +343,6 @@ export const MilkProductsView = () => {
         </form>
       </Modal>
 
-      {/* Adjust Stock Modal */}
       <Modal
         isOpen={isAdjustModalOpen}
         onClose={() => setIsAdjustModalOpen(false)}

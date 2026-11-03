@@ -43,7 +43,6 @@ export const SettingsView = () => {
       </div>
 
       <form onSubmit={handleSave}>
-        {/* Section 1: Organization Profile */}
         <div className="card-dairy mb-4">
           <div className="card-dairy-header">
             <div className="card-dairy-title">
@@ -107,7 +106,6 @@ export const SettingsView = () => {
           </div>
         </div>
 
-        {/* Section 2: Milk Rate Chart Quality Formulas */}
         <div className="card-dairy mb-4">
           <div className="card-dairy-header">
             <div className="card-dairy-title">
@@ -117,7 +115,6 @@ export const SettingsView = () => {
           </div>
           <div className="card-dairy-body">
             <div className="row g-4">
-              {/* Cow Milk Formula */}
               <div className="col-12 col-md-6">
                 <div className="p-5 border border-emerald-200 bg-emerald-50/70 rounded-2xl shadow-xs">
                   <h4 className="text-base font-extrabold text-emerald-950 mb-3">
@@ -156,7 +153,6 @@ export const SettingsView = () => {
                 </div>
               </div>
 
-              {/* Buffalo Milk Formula */}
               <div className="col-12 col-md-6">
                 <div className="p-5 border border-amber-200 bg-amber-50/70 rounded-2xl shadow-xs">
                   <h4 className="text-base font-extrabold text-amber-950 mb-3">
@@ -198,7 +194,6 @@ export const SettingsView = () => {
           </div>
         </div>
 
-        {/* Section 3: Hardware & Shift Timings */}
         <div className="card-dairy">
           <div className="card-dairy-header">
             <div className="card-dairy-title">

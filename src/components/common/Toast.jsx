@@ -63,10 +63,6 @@ export function ToastContainer({ toasts, onClose }) {
   );
 }
 
-/**
- * Global Toast component rendered in App.
- * Uses useToast() to automatically listen to app:toast events.
- */
 export const Toast = () => {
   const { toasts, closeToast } = useToast();
   return <ToastContainer toasts={toasts} onClose={closeToast} />;
