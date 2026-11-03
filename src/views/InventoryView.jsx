@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import {
   Warehouse,
   Plus,
-  ArrowDownLeft,
-  ArrowUpRight,
-  AlertTriangle,
-  Layers,
-  Package,
   Milk,
   CheckCircle,
   Clock
@@ -15,10 +10,10 @@ import { useDairy } from '../context/DairyContext';
 import { Modal } from '../components/common/Modal';
 
 export const InventoryView = () => {
-  const { products, showToast } = useDairy();
+  const { showToast } = useDairy();
 
   // Raw Silo data
-  const [silos, setSilos] = useState([
+  const [silos] = useState([
     {
       id: 'SILO-01',
       name: 'Bulk Milk Silo #1 (Cow)',
@@ -46,7 +41,7 @@ export const InventoryView = () => {
   ]);
 
   // Supplies Inventory (Animal Feed & Packaging)
-  const [supplies, setSupplies] = useState([
+  const [supplies] = useState([
     { id: 'SUP-01', name: 'Amul Dan Cattle Feed (50kg)', category: 'Animal Feed', current: 140, unit: 'Bags', min: 40, status: 'In Stock' },
     { id: 'SUP-02', name: 'Chelated Mineral Mixture (10kg)', category: 'Nutritional Supplements', current: 28, unit: 'Bags', min: 20, status: 'In Stock' },
     { id: 'SUP-03', name: 'Food-Grade 1L LDPE Pouches', category: 'Packaging', current: 8500, unit: 'Pouches', min: 3000, status: 'In Stock' },

@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import {
-  UserCheck,
   Plus,
   Search,
-  Filter,
   Phone,
   MapPin,
-  Calendar,
   CreditCard,
   Pause,
   Play,
-  Receipt,
   CheckCircle,
-  Eye,
-  AlertCircle
+  Eye
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 import { Modal } from '../components/common/Modal';
@@ -22,7 +17,6 @@ export const CustomersView = () => {
   const {
     customers,
     addCustomer,
-    updateCustomer,
     toggleCustomerStatus,
     recordCustomerPayment,
     showToast

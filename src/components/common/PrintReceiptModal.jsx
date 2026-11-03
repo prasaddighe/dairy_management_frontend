@@ -1,5 +1,5 @@
 import React from 'react';
-import { Printer, Download, Check, Milk } from 'lucide-react';
+import { Printer } from 'lucide-react';
 import { Modal } from './Modal';
 import { useDairy } from '../../context/DairyContext';
 

@@ -4,12 +4,8 @@ import {
   DollarSign,
   TrendingUp,
   Receipt,
-  Download,
   CheckCircle,
-  Building,
-  Printer,
-  FileSpreadsheet,
-  AlertCircle
+  Printer
 } from 'lucide-react';
 import { useDairy } from '../../context/DairyContext';
 import { Modal } from '../../components/common/Modal';
@@ -25,7 +21,6 @@ export const AccountantPortalView = () => {
     currentUser
   } = useDairy();
 
-  const [activeTab, setActiveTab] = useState('payouts');
   const [selectedFarmer, setSelectedFarmer] = useState(null);
   const [payoutAmount, setPayoutAmount] = useState('');
   const [payoutMethod, setPayoutMethod] = useState('Bank Transfer (NEFT)');

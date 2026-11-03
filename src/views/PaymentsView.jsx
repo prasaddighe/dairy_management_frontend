@@ -4,19 +4,12 @@ import {
   DollarSign,
   TrendingUp,
   Receipt,
-  Download,
   CheckCircle,
-  Plus,
   Search,
-  Filter,
-  ArrowUpRight,
-  ArrowDownRight,
-  Building,
   Printer
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 import { Modal } from '../components/common/Modal';
-import { PrintReceiptModal } from '../components/common/PrintReceiptModal';
 
 export const PaymentsView = () => {
   const {
@@ -44,9 +37,6 @@ export const PaymentsView = () => {
   const [collectAmount, setCollectAmount] = useState('');
   const [collectMethod, setCollectMethod] = useState('UPI / GPay');
   const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
-
-  // Slip modal
-  const [selectedReceipt, setSelectedReceipt] = useState(null);
 
   // Computed Financials
   const totalFarmerPending = farmers.reduce((acc, f) => acc + (f.pendingDue || 0), 0);

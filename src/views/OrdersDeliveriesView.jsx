@@ -3,22 +3,15 @@ import {
   Truck,
   CheckCircle,
   Clock,
-  XCircle,
   MapPin,
   Phone,
-  User,
-  Calendar,
-  Filter,
-  Plus,
-  ArrowRight,
-  Sun,
-  Moon
+  Plus
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 import { Modal } from '../components/common/Modal';
 
 export const OrdersDeliveriesView = () => {
-  const { deliveries, updateDeliveryStatus, customers, showToast } = useDairy();
+  const { deliveries, updateDeliveryStatus, showToast } = useDairy();
 
   const [shiftFilter, setShiftFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');

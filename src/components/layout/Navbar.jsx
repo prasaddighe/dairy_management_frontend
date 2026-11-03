@@ -6,12 +6,11 @@ import {
   Sun,
   Moon,
   Clock,
-  Sparkles,
   X
 } from 'lucide-react';
 import { useDairy } from '../../context/DairyContext';
 
-export const Navbar = ({ toggleSidebar, sidebarOpen }) => {
+export const Navbar = ({ toggleSidebar }) => {
   const {
     currentShift,
     setCurrentShift,
@@ -27,7 +26,7 @@ export const Navbar = ({ toggleSidebar, sidebarOpen }) => {
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [currentTime, setCurrentTime] = useState(() => new Date().toLocaleTimeString());
 
   const notifDropdownRef = useRef(null);
   const searchRef = useRef(null);

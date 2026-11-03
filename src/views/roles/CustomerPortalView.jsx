@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import {
-  ShoppingBag,
   CreditCard,
   CheckCircle,
   Pause,
   Play,
-  Calendar,
   Truck,
-  MapPin,
   Clock,
   Plus,
-  Receipt,
   Sparkles
 } from 'lucide-react';
 import { useDairy } from '../../context/DairyContext';

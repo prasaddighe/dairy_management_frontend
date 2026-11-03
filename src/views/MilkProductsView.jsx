@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Package,
   Plus,
   Search,
-  Filter,
-  AlertTriangle,
   CheckCircle,
   PlusCircle,
   MinusCircle,

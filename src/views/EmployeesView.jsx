@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import {
-  UserCog,
   Plus,
-  Search,
-  Phone,
-  Mail,
-  Shield,
-  CheckCircle,
-  Briefcase
+  CheckCircle
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 import { Modal } from '../components/common/Modal';

@@ -3,11 +3,8 @@ import {
   Receipt,
   Plus,
   Search,
-  Filter,
-  DollarSign,
   TrendingDown,
   Printer,
-  Calendar,
   CheckCircle
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';

@@ -3,14 +3,10 @@ import {
   Milk,
   CreditCard,
   Printer,
-  Calendar,
   Building,
   Coins,
-  CheckCircle,
   TrendingUp,
-  User,
-  MapPin,
-  Phone
+  User
 } from 'lucide-react';
 import { useDairy } from '../../context/DairyContext';
 import { PrintReceiptModal } from '../../components/common/PrintReceiptModal';
@@ -56,9 +52,6 @@ export const FarmerPortalView = () => {
 
   // Selected slip modal
   const [selectedSlip, setSelectedSlip] = useState(null);
-
-  const totalMyLiters = myMilkRecords.reduce((acc, r) => acc + r.quantity, 0);
-  const totalMyEarnings = myMilkRecords.reduce((acc, r) => acc + r.totalAmount, 0);
 
   return (
     <div>

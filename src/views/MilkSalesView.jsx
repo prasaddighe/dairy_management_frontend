@@ -6,11 +6,8 @@ import {
   Trash2,
   Printer,
   Search,
-  CreditCard,
   CheckCircle,
-  FileText,
-  DollarSign,
-  Tag
+  FileText
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 import { PrintReceiptModal } from '../components/common/PrintReceiptModal';

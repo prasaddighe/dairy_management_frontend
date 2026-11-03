@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Settings,
   Save,
   Building,
   Coins,
-  Clock,
   Printer,
-  CheckCircle,
-  HelpCircle
+  CheckCircle
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 

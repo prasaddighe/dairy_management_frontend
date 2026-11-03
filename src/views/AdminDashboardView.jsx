@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Milk,
   Users,
@@ -10,12 +10,9 @@ import {
   Receipt,
   Plus,
   ArrowUpRight,
-  ArrowDownRight,
   Printer,
   ChevronRight,
-  Calendar,
-  Layers,
-  Sparkles
+  Layers
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 import { PrintReceiptModal } from '../components/common/PrintReceiptModal';
@@ -34,7 +31,7 @@ export const AdminDashboardView = () => {
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
   // Computed Metrics
-  const todayDate = new Date().toISOString().slice(0, 10);
+  const todayDate = useMemo(() => new Date().toISOString().slice(0, 10), []);
   const todayRecords = milkRecords.filter(r => r.date === todayDate);
   const todayLiters = todayRecords.reduce((acc, r) => acc + r.quantity, 0);
 

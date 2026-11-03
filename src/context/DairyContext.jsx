@@ -1367,7 +1367,7 @@ export const DairyProvider = ({ children }) => {
 
     // Add notification
     const farmer = farmers.find(f => f.id === farmerId);
-    showToast(`Payment of ₹${amount} settled for ${farmer ? farmer.name : farmerId} via ${method}!`, 'success');
+    showToast(`Payment of ₹${amount} settled for ${farmer ? farmer.name : farmerId} via ${method}${refNo ? ` (Ref: ${refNo})` : ''}!`, 'success');
   };
 
   const recordCustomerPayment = (customerId, amount, method) => {

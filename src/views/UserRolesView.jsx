@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import {
-  ShieldCheck,
   Check,
   X,
-  UserCheck,
   Shield,
   UserPlus,
   Search,
   Trash2,
   Mail,
   Phone,
-  Building,
-  KeyRound
+  Building
 } from 'lucide-react';
 import { useDairy, SYSTEM_ROLES } from '../context/DairyContext';
 import { Modal } from '../components/common/Modal';

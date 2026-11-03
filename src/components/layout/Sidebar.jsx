@@ -21,8 +21,7 @@ import {
   CalendarDays,
   FileSpreadsheet,
   Coins,
-  MapPin,
-  ClipboardList
+  MapPin
 } from 'lucide-react';
 import { useDairy } from '../../context/DairyContext';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, CheckCheck, Trash2, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import { CheckCheck, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 
 export const NotificationsView = () => {

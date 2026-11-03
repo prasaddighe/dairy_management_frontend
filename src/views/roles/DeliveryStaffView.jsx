@@ -6,7 +6,6 @@ import {
   MapPin,
   Phone,
   CheckCheck,
-  AlertTriangle,
   Sun,
   Moon,
   Navigation
@@ -14,7 +13,7 @@ import {
 import { useDairy } from '../../context/DairyContext';
 
 export const DeliveryStaffView = () => {
-  const { deliveries, updateDeliveryStatus, showToast, currentUser } = useDairy();
+  const { deliveries, updateDeliveryStatus, currentUser } = useDairy();
   const [shiftFilter, setShiftFilter] = useState('Morning');
 
   const filteredDeliveries = deliveries.filter(d => d.shift === shiftFilter);
