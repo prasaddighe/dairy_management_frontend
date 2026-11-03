@@ -22,15 +22,18 @@ const resources = {
   hi: { translation: hiLocale },
 };
 
-function normalizeLanguage(code) {
+export function normalizeLanguage(code) {
   if (!code) return DEFAULT_LANGUAGE;
   const match = SUPPORTED_LANGUAGES.find(
-    (l) => l.code === code || l.file === code || l.label.toLowerCase() === String(code).toLowerCase()
+    (l) =>
+      l.code === code ||
+      l.file === code ||
+      l.label.toLowerCase() === String(code).toLowerCase()
   );
   return match ? match.code : DEFAULT_LANGUAGE;
 }
 
-function getInitialLanguage() {
+export function getInitialLanguage() {
   try {
     const params = new URLSearchParams(window.location.search);
     const urlLng = params.get('lng') || params.get('lang');
@@ -57,7 +60,7 @@ i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false },
   returnNull: false,
   returnEmptyString: false,
-  react: { useSuspense: false },
+  react: { useSuspense: false, bindI18n: 'languageChanged' },
 });
 
 export function preloadLanguage(_code) {
@@ -71,10 +74,11 @@ export function setAppLanguage(code) {
   } catch {}
   i18n.changeLanguage(normalized);
   syncDocumentLanguage(normalized);
+  return normalized;
 }
 
 export function getAppLanguage() {
-  return normalizeLanguage(i18n.language);
+  return normalizeLanguage(i18n.language || getInitialLanguage());
 }
 
 function syncDocumentLanguage(code) {

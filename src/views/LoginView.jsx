@@ -95,19 +95,19 @@ export const LoginView = ({ onNavigateRegister }) => {
           <div className="grid grid-cols-2 gap-3.5 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20">
             <div>
               <div className="text-xl font-extrabold">100%</div>
-              <div className="text-xs opacity-90">Real-Time Milk Testing</div>
+              <div className="text-xs opacity-90">{t('RealTimeMilkTesting', 'Real-Time Milk Testing')}</div>
             </div>
             <div>
-              <div className="text-xl font-extrabold">Secure</div>
-              <div className="text-xs opacity-90">Role-Based Access</div>
+              <div className="text-xl font-extrabold">{t('Secure', 'Secure')}</div>
+              <div className="text-xs opacity-90">{t('RoleBasedAccess', 'Role-Based Access')}</div>
             </div>
             <div>
-              <div className="text-xl font-extrabold">Instant Slip</div>
-              <div className="text-xs opacity-90">Thermal Receipt Print</div>
+              <div className="text-xl font-extrabold">{t('InstantSlip', 'Instant Slip')}</div>
+              <div className="text-xs opacity-90">{t('ThermalReceiptPrint', 'Thermal Receipt Print')}</div>
             </div>
             <div>
-              <div className="text-xl font-extrabold">Direct Payout</div>
-              <div className="text-xs opacity-90">Farmer Bank Ledger</div>
+              <div className="text-xl font-extrabold">{t('DirectPayout', 'Direct Payout')}</div>
+              <div className="text-xs opacity-90">{t('FarmerBankLedger', 'Farmer Bank Ledger')}</div>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ export const LoginView = ({ onNavigateRegister }) => {
         <div className="w-full max-w-md my-auto">
           <div className="mb-8">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-3 border border-emerald-100">
-              <ShieldCheck size={14} /> Secure Dairy Portal
+              <ShieldCheck size={14} /> {t('SecureDairyPortal', 'Secure Dairy Portal')}
             </div>
             <h2 className="text-3xl font-extrabold text-slate-900 mb-1.5 tracking-tight">
               {t('Login_Welcome', 'Sign In to Your Account')}

@@ -178,7 +178,7 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
           <div className="px-5 py-2.5 bg-slate-100 border-b border-slate-200/60">
             <div className="flex items-center justify-between">
               <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">
-                Active Mode
+                {t('ActiveMode', 'Active Mode')}
               </span>
               <span className="badge-dairy success text-[11px]">
                 {currentUser?.badge}
@@ -190,10 +190,12 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
         <div className="sidebar-menu">
           {navSections.map((sec, idx) => (
             <div key={idx} className="mb-2">
-              <div className="menu-category-title">{sec.title}</div>
+              <div className="menu-category-title">{t(sec.title.replace(/[&\s-]+/g, ''), sec.title)}</div>
               {sec.items.map(item => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
+                const navKey = `Nav_${item.id.replace(/-([a-z])/g, (_, c) => c.toUpperCase()).replace(/^[a-z]/, c => c.toUpperCase())}`;
+                const labelText = t(navKey, t(item.label, item.label));
                 return (
                   <button
                     key={item.id}
@@ -202,10 +204,10 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
                       setActiveTab(item.id);
                       if (mobileOpen) closeMobile();
                     }}
-                    title={isCollapsed ? item.label : undefined}
+                    title={isCollapsed ? labelText : undefined}
                   >
                     <Icon size={19} className={isActive ? 'text-primary' : 'text-secondary'} />
-                    <span className="nav-text">{item.label}</span>
+                    <span className="nav-text">{labelText}</span>
                     {item.badge !== undefined && item.badge > 0 && (
                       <span className="nav-badge">{item.badge}</span>
                     )}
