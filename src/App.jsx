@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { LanguageProvider } from './context/LanguageContext';
 import { DairyProvider, useDairy } from './context/DairyContext';
 import { Navbar } from './components/layout/Navbar';
 import { Sidebar } from './components/layout/Sidebar';
@@ -128,8 +129,10 @@ const MainApplication = () => {
 
 export default function App() {
   return (
-    <DairyProvider>
-      <MainApplication />
-    </DairyProvider>
+    <LanguageProvider>
+      <DairyProvider>
+        <MainApplication />
+      </DairyProvider>
+    </LanguageProvider>
   );
 }

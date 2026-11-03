@@ -11,9 +11,10 @@ import {
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
 import { Modal } from '../components/common/Modal';
+import { PublicLanguageDropdown } from '../components/common/PublicLanguageDropdown';
 
 export const LoginView = ({ onNavigateRegister }) => {
-  const { loginUser, showToast } = useDairy();
+  const { loginUser, showToast, t } = useDairy();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -70,16 +71,23 @@ export const LoginView = ({ onNavigateRegister }) => {
               <img src="/dairy-logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-lg" />
             </div>
             <div>
-              <h2 className="text-2xl font-extrabold text-white leading-tight">AmritDhara</h2>
-              <div className="text-xs opacity-90 tracking-wider">Smart Dairy Management System</div>
+              <h2 className="text-2xl font-extrabold text-white leading-tight">
+                {t('appName', 'AmritDhara')}
+              </h2>
+              <div className="text-xs opacity-90 tracking-wider">
+                {t('appSubtitle', 'Smart Dairy Management System')}
+              </div>
             </div>
           </div>
 
           <h1 className="text-3xl font-extrabold text-white leading-snug mb-4">
-            Empowering Dairy Farmers, Automating Milk Operations.
+            {t('Login_HeroTitle', 'Empowering Dairy Farmers, Automating Milk Operations.')}
           </h1>
           <p className="text-sm opacity-90 leading-relaxed max-w-md">
-            Complete end-to-end ERP platform for automated milk collection, instant fat & SNF testing rate calculation, farmer passbook accounting, product logistics, and customer milk subscriptions.
+            {t(
+              'Login_HeroDesc',
+              'Complete end-to-end ERP platform for automated milk collection, instant fat & SNF testing rate calculation, farmer passbook accounting, product logistics, and customer milk subscriptions.'
+            )}
           </p>
         </div>
 
@@ -105,17 +113,21 @@ export const LoginView = ({ onNavigateRegister }) => {
         </div>
       </div>
 
-      <div className="flex-1 h-screen overflow-y-auto bg-white flex flex-col justify-center items-center px-6 sm:px-12 py-10">
+      <div className="flex-1 h-screen overflow-y-auto bg-white flex flex-col justify-center items-center px-6 sm:px-12 py-10 relative">
+        <div className="absolute top-6 right-6 z-20">
+          <PublicLanguageDropdown className="w-44" />
+        </div>
+
         <div className="w-full max-w-md my-auto">
           <div className="mb-8">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-3 border border-emerald-100">
               <ShieldCheck size={14} /> Secure Dairy Portal
             </div>
             <h2 className="text-3xl font-extrabold text-slate-900 mb-1.5 tracking-tight">
-              Sign In to Your Account
+              {t('Login_Welcome', 'Sign In to Your Account')}
             </h2>
             <p className="text-sm text-slate-500">
-              Enter your registered username or email and password to access the portal.
+              {t('Login_Subtitle', 'Enter your registered username or email and password to access the portal.')}
             </p>
           </div>
 
@@ -129,7 +141,7 @@ export const LoginView = ({ onNavigateRegister }) => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
               <label className="block font-semibold text-xs text-slate-700">
-                Email or Username
+                {t('EmailOrPhone', 'Email or Username')}
               </label>
               <div className="relative">
                 <Mail
@@ -141,7 +153,7 @@ export const LoginView = ({ onNavigateRegister }) => {
                   className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="e.g. anand.patil or your username"
+                  placeholder={t('EmailOrPhonePlaceholder', 'e.g. anand.patil or your username')}
                   autoComplete="username"
                   required
                 />
@@ -151,14 +163,14 @@ export const LoginView = ({ onNavigateRegister }) => {
             <div className="space-y-1.5">
               <div className="flex justify-between items-center">
                 <label className="block font-semibold text-xs text-slate-700">
-                  Password
+                  {t('Password', 'Password')}
                 </label>
                 <button
                   type="button"
                   onClick={() => setIsForgotModalOpen(true)}
                   className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 bg-transparent border-0 cursor-pointer"
                 >
-                  Forgot Password?
+                  {t('ForgotPassword', 'Forgot Password?')}
                 </button>
               </div>
               <div className="relative">
@@ -171,7 +183,7 @@ export const LoginView = ({ onNavigateRegister }) => {
                   className="w-full pl-10 pr-11 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder={t('PasswordPlaceholder', 'Enter your password')}
                   autoComplete="current-password"
                   required
                 />
@@ -194,7 +206,7 @@ export const LoginView = ({ onNavigateRegister }) => {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="accent-emerald-600 w-4 h-4 rounded cursor-pointer"
                 />
-                Remember my login on this device
+                {t('RememberMe', 'Remember my login on this device')}
               </label>
             </div>
 
@@ -206,24 +218,24 @@ export const LoginView = ({ onNavigateRegister }) => {
               {isLoading ? (
                 <>
                   <Loader2 size={18} className="animate-spin" />
-                  Signing in...
+                  {t('Login_SigningIn', 'Signing in...')}
                 </>
               ) : (
                 <>
-                  <LogIn size={18} /> Sign In
+                  <LogIn size={18} /> {t('Login', 'Sign In')}
                 </>
               )}
             </button>
           </form>
 
           <div className="mt-6 text-center text-sm text-slate-500">
-            Don't have an account yet?{' '}
+            {t('DontHaveAccount', "Don't have an account yet?")}{' '}
             <button
               type="button"
               onClick={onNavigateRegister}
               className="text-emerald-700 font-bold hover:underline bg-transparent border-0 cursor-pointer"
             >
-              Register here (नवीन नोंदणी)
+              {t('RegisterHere', 'Register here (नवीन नोंदणी)')}
             </button>
           </div>
 
@@ -236,14 +248,20 @@ export const LoginView = ({ onNavigateRegister }) => {
       <Modal
         isOpen={isForgotModalOpen}
         onClose={() => setIsForgotModalOpen(false)}
-        title="Reset Account Password"
+        title={t('ForgotPassword', 'Reset Account Password')}
         footer={
           <div className="flex justify-end gap-2 w-full">
-            <button className="px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200" onClick={() => setIsForgotModalOpen(false)}>
-              Cancel
+            <button
+              className="px-4 py-2 text-sm font-medium rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200"
+              onClick={() => setIsForgotModalOpen(false)}
+            >
+              {t('Cancel', 'Cancel')}
             </button>
-            <button className="px-4 py-2 text-sm font-medium rounded-lg bg-emerald-700 text-white hover:bg-emerald-800" onClick={handleForgotPassword}>
-              Send Reset Link
+            <button
+              className="px-4 py-2 text-sm font-medium rounded-lg bg-emerald-700 text-white hover:bg-emerald-800"
+              onClick={handleForgotPassword}
+            >
+              {t('Submit', 'Send Reset Link')}
             </button>
           </div>
         }
@@ -252,7 +270,9 @@ export const LoginView = ({ onNavigateRegister }) => {
           Enter your registered email address or mobile number. We will send you an OTP verification code to reset your password.
         </p>
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">Registered Email / Mobile</label>
+          <label className="block text-xs font-semibold text-slate-700">
+            {t('EmailOrPhone', 'Registered Email / Mobile')}
+          </label>
           <input
             type="text"
             className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600"

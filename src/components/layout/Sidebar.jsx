@@ -26,7 +26,7 @@ import {
 import { useDairy } from '../../context/DairyContext';
 
 export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }) => {
-  const { currentUser, activeTab, setActiveTab, logoutUser, milkRecords, deliveries, notifications } = useDairy();
+  const { currentUser, activeTab, setActiveTab, logoutUser, milkRecords, deliveries, notifications, t } = useDairy();
 
   const role = currentUser?.id || 'super_admin';
 
@@ -157,7 +157,7 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
             </div>
             {!isCollapsed && (
               <div className="flex flex-col">
-                <span className="text-lg leading-tight text-emerald-900 font-extrabold">AmritDhara</span>
+                <span className="text-lg leading-tight text-emerald-900 font-extrabold">{t('appName', 'AmritDhara')}</span>
                 <span className="text-[11px] text-slate-400 font-semibold tracking-wider">
                   SMART DAIRY ERP
                 </span>
@@ -221,7 +221,7 @@ export const Sidebar = ({ isCollapsed, toggleCollapse, mobileOpen, closeMobile }
               onClick={logoutUser}
             >
               <LogOut size={19} />
-              <span className="nav-text">Sign Out</span>
+              <span className="nav-text">{t('Logout', 'Sign Out')}</span>
             </button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { dispatchToast } from '../hooks/useToast';
 import { authService } from '../services/authService';
+import { useLanguage } from './LanguageContext';
 
 const DairyContext = createContext();
 
@@ -1371,9 +1372,16 @@ export const DairyProvider = ({ children }) => {
     showToast('All notifications marked as read', 'info');
   };
 
+  const { language, setLanguage, t, supportedLanguages, currentLanguage } = useLanguage();
+
   return (
     <DairyContext.Provider
       value={{
+        language,
+        setLanguage,
+        t,
+        supportedLanguages,
+        currentLanguage,
         currentUser,
         setCurrentUser,
         users,

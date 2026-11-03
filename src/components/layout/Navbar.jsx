@@ -9,6 +9,7 @@ import {
   X
 } from 'lucide-react';
 import { useDairy } from '../../context/DairyContext';
+import { PublicLanguageDropdown } from '../common/PublicLanguageDropdown';
 
 export const Navbar = ({ toggleSidebar }) => {
   const {
@@ -20,7 +21,8 @@ export const Navbar = ({ toggleSidebar }) => {
     farmers,
     customers,
     products,
-    setActiveTab
+    setActiveTab,
+    t
   } = useDairy();
 
   const [showNotifDropdown, setShowNotifDropdown] = useState(false);
@@ -179,13 +181,15 @@ export const Navbar = ({ toggleSidebar }) => {
       </div>
 
       <div className="navbar-right">
+        <PublicLanguageDropdown className="w-36 sm:w-40" />
+
         <button
           onClick={toggleShift}
           className={`btn-dairy ${currentShift === 'Morning' ? 'badge-dairy morning' : 'badge-dairy evening'} py-1.5 px-3 cursor-pointer text-xs`}
           title="Click to toggle Shift"
         >
           {currentShift === 'Morning' ? <Sun size={15} /> : <Moon size={15} />}
-          <span>{currentShift} Shift</span>
+          <span>{currentShift === 'Morning' ? t('Morning', 'Morning') : t('Evening', 'Evening')} {t('Shift', 'Shift')}</span>
         </button>
 
         <div className="hidden md:flex items-center gap-1.5 text-slate-600 text-xs font-semibold px-2">

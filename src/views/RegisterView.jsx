@@ -13,11 +13,12 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useDairy } from '../context/DairyContext';
+import { PublicLanguageDropdown } from '../components/common/PublicLanguageDropdown';
 
 export const RegisterView = ({ onNavigateLogin }) => {
-  const { registerUser, showToast } = useDairy();
+  const { registerUser, showToast, t } = useDairy();
 
-  const [roleId, setRoleId] = useState('farmer'); // 'farmer', 'customer', 'operator'
+  const [roleId, setRoleId] = useState('farmer');
   const [formData, setFormData] = useState({
     fullName: '',
     userName: '',
@@ -87,35 +88,51 @@ export const RegisterView = ({ onNavigateLogin }) => {
               <img src="/dairy-logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-lg" />
             </div>
             <div>
-              <h2 className="text-2xl font-extrabold text-white leading-tight">AmritDhara</h2>
-              <div className="text-xs opacity-90 tracking-wider">Smart Dairy Management System</div>
+              <h2 className="text-2xl font-extrabold text-white leading-tight">
+                {t('appName', 'AmritDhara')}
+              </h2>
+              <div className="text-xs opacity-90 tracking-wider">
+                {t('appSubtitle', 'Smart Dairy Management System')}
+              </div>
             </div>
           </div>
 
           <h1 className="text-3xl font-extrabold text-white leading-snug mb-4">
-            Join Maharashtra's Leading Smart Dairy Network.
+            {t('Register_HeroTitle', "Join Maharashtra's Leading Smart Dairy Network.")}
           </h1>
           <p className="text-sm opacity-90 leading-relaxed max-w-md mb-6">
-            Register today for transparent milk collection slips, real-time fat & SNF testing rates, direct farmer bank transfers, or doorstep fresh milk delivery.
+            {t(
+              'Register_HeroDesc',
+              'Register today for transparent milk collection slips, real-time fat & SNF testing rates, direct farmer bank transfers, or doorstep fresh milk delivery.'
+            )}
           </p>
 
           <div className="space-y-3.5">
             <div className="flex items-start gap-2.5">
               <CheckCircle2 size={18} className="text-emerald-300 mt-0.5 shrink-0" />
               <span className="text-xs opacity-95 leading-relaxed">
-                <strong className="text-white">Farmers:</strong> Instant computerized receipt, passbook ledger & 10-day cycle bank payout.
+                {t(
+                  'Register_FarmerBenefit',
+                  'Farmers: Instant computerized receipt, passbook ledger & 10-day cycle bank payout.'
+                )}
               </span>
             </div>
             <div className="flex items-start gap-2.5">
               <CheckCircle2 size={18} className="text-emerald-300 mt-0.5 shrink-0" />
               <span className="text-xs opacity-95 leading-relaxed">
-                <strong className="text-white">Customers:</strong> Pure cow/buffalo milk subscription with morning/evening doorstep delivery.
+                {t(
+                  'Register_CustomerBenefit',
+                  'Customers: Pure cow/buffalo milk subscription with morning/evening doorstep delivery.'
+                )}
               </span>
             </div>
             <div className="flex items-start gap-2.5">
               <CheckCircle2 size={18} className="text-emerald-300 mt-0.5 shrink-0" />
               <span className="text-xs opacity-95 leading-relaxed">
-                <strong className="text-white">Staff & Operators:</strong> Fast digital intake desk, lactometer logging & thermal billing.
+                {t(
+                  'Register_StaffBenefit',
+                  'Staff & Operators: Fast digital intake desk, lactometer logging & thermal billing.'
+                )}
               </span>
             </div>
           </div>
@@ -124,37 +141,45 @@ export const RegisterView = ({ onNavigateLogin }) => {
         <div className="relative z-10 mt-8">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 flex items-center justify-between">
             <div>
-              <div className="text-xs opacity-85">Already registered?</div>
-              <div className="text-sm font-bold">Sign in to your account</div>
+              <div className="text-xs opacity-85">
+                {t('AlreadyHaveAccount', 'Already registered?')}
+              </div>
+              <div className="text-sm font-bold">
+                {t('Login_Welcome', 'Sign in to your account')}
+              </div>
             </div>
             <button
               type="button"
               onClick={onNavigateLogin}
               className="px-3.5 py-1.5 rounded-lg bg-white text-green-900 font-bold text-xs flex items-center gap-1 hover:bg-slate-50 transition cursor-pointer"
             >
-              Sign In <ArrowRight size={14} />
+              {t('Login', 'Sign In')} <ArrowRight size={14} />
             </button>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 h-screen overflow-y-auto bg-white flex flex-col items-center px-6 sm:px-12 py-8">
+      <div className="flex-1 h-screen overflow-y-auto bg-white flex flex-col items-center px-6 sm:px-12 py-8 relative">
+        <div className="absolute top-6 right-6 z-20">
+          <PublicLanguageDropdown className="w-44" />
+        </div>
+
         <div className="w-full max-w-lg my-auto py-4">
           <div className="mb-5">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-2 border border-emerald-100">
-              <Sparkles size={14} /> New Account Registration
+              <Sparkles size={14} /> {t('Register_Badge', 'New Account Registration')}
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1 tracking-tight">
-              Create Your Account
+              {t('Register_Title', 'Create Your Account')}
             </h2>
             <p className="text-sm text-slate-500">
-              Choose your profile type and enter your details to set up your dairy portal access.
+              {t('Register_Subtitle', 'Choose your profile type and enter your details to set up your dairy portal access.')}
             </p>
           </div>
 
           <div className="mb-4">
             <label className="block font-bold text-xs text-slate-700 mb-1.5">
-              Select Account Type *
+              {t('Register_SelectType', 'Select Account Type *')}
             </label>
             <div className="grid grid-cols-3 gap-2">
               <button
@@ -167,8 +192,8 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 }`}
               >
                 <div className="text-base mb-0.5">🌾</div>
-                <div>Dairy Farmer</div>
-                <div className="text-[10px] opacity-75">दूध उत्पादक</div>
+                <div>{t('Register_DairyFarmer', 'Dairy Farmer')}</div>
+                <div className="text-[10px] opacity-75">{t('Register_DairyFarmerSub', 'दूध उत्पादक')}</div>
               </button>
 
               <button
@@ -181,8 +206,8 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 }`}
               >
                 <div className="text-base mb-0.5">🥛</div>
-                <div>Customer</div>
-                <div className="text-[10px] opacity-75">दूध ग्राहक</div>
+                <div>{t('Register_Customer', 'Customer')}</div>
+                <div className="text-[10px] opacity-75">{t('Register_CustomerSub', 'दूध ग्राहक')}</div>
               </button>
 
               <button
@@ -195,8 +220,8 @@ export const RegisterView = ({ onNavigateLogin }) => {
                 }`}
               >
                 <div className="text-base mb-0.5">🏢</div>
-                <div>Dairy Staff</div>
-                <div className="text-[10px] opacity-75">डेअरी ऑपरेटर</div>
+                <div>{t('Register_DairyStaff', 'Dairy Staff')}</div>
+                <div className="text-[10px] opacity-75">{t('Register_DairyStaffSub', 'डेअरी ऑपरेटर')}</div>
               </button>
             </div>
           </div>
@@ -205,7 +230,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
-                  Full Name *
+                  {t('Register_FullName', 'Full Name *')}
                 </label>
                 <div className="relative">
                   <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -222,7 +247,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
 
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
-                  Mobile Number *
+                  {t('Register_Mobile', 'Mobile Number *')}
                 </label>
                 <div className="relative">
                   <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -239,7 +264,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
 
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
-                  Login Username *
+                  {t('Register_Username', 'Login Username *')}
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold pointer-events-none">@</span>
@@ -256,7 +281,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
 
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
-                  Email Address
+                  {t('Register_Email', 'Email Address')}
                 </label>
                 <div className="relative">
                   <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -272,7 +297,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
 
               <div className="sm:col-span-2 space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
-                  {roleId === 'farmer' ? 'Village / Center Name' : (roleId === 'customer' ? 'Delivery Address' : 'Assigned Plant / Branch')}
+                  {roleId === 'farmer' ? t('Register_Village', 'Village / Center Name') : (roleId === 'customer' ? t('Register_Address', 'Delivery Address') : 'Assigned Plant / Branch')}
                 </label>
                 <div className="relative">
                   <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -288,7 +313,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
 
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
-                  Password *
+                  {t('Register_Password', 'Password *')}
                 </label>
                 <div className="relative">
                   <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -313,7 +338,7 @@ export const RegisterView = ({ onNavigateLogin }) => {
 
               <div className="space-y-1">
                 <label className="block font-semibold text-xs text-slate-700">
-                  Confirm Password *
+                  {t('Register_ConfirmPassword', 'Confirm Password *')}
                 </label>
                 <div className="relative">
                   <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
@@ -345,18 +370,18 @@ export const RegisterView = ({ onNavigateLogin }) => {
               type="submit"
               className="w-full py-3 px-4 text-sm font-bold flex items-center justify-center gap-2 rounded-xl shadow-lg shadow-emerald-700/20 text-white bg-emerald-700 hover:bg-emerald-800 transition cursor-pointer mt-2"
             >
-              <UserPlus size={18} /> Complete Registration & Access Dashboard
+              <UserPlus size={18} /> {t('Register_CompleteButton', 'Complete Registration & Access Dashboard')}
             </button>
           </form>
 
           <div className="mt-5 text-center text-xs text-slate-500">
-            Already have an account?{' '}
+            {t('AlreadyHaveAccount', 'Already have an account?')}{' '}
             <button
               type="button"
               onClick={onNavigateLogin}
               className="text-emerald-700 font-bold hover:underline bg-transparent border-0 cursor-pointer"
             >
-              Sign In here
+              {t('SignInHere', 'Sign In here')}
             </button>
           </div>
         </div>
